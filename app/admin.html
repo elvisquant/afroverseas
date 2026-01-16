@@ -1,0 +1,37 @@
+<!-- ADMIN UPLOAD SECTION -->
+<div class="max-w-md mx-auto bg-white p-8 rounded-[2.5rem] shadow-xl border border-gray-100">
+    <h2 class="text-2xl font-black mb-6 text-gray-800">Vette New Candidate</h2>
+    
+    <form id="candidateForm" class="space-y-4">
+        <input type="text" id="name" placeholder="Full Name" class="w-full p-4 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-200">
+        
+        <!-- VIDEO UPLOAD BOX -->
+        <div class="relative border-2 border-dashed border-orange-200 rounded-3xl p-8 text-center hover:bg-orange-50 transition-colors">
+            <input type="file" id="video" accept="video/*" class="absolute inset-0 opacity-0 cursor-pointer">
+            <div class="text-orange-600 font-bold">
+                <svg class="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                Upload Interview Video
+            </div>
+        </div>
+
+        <button type="button" onclick="submitCandidate()" class="w-full bg-[#FF5722] text-white py-4 rounded-2xl font-bold shadow-lg shadow-orange-200 active:scale-95 transition-all">
+            Publish to Platform
+        </button>
+    </form>
+</div>
+
+<script>
+async function submitCandidate() {
+    const formData = new FormData();
+    formData.append('name', document.getElementById('name').value);
+    formData.append('video_file', document.getElementById('video').files[0]);
+    // ... add other fields ...
+
+    const response = await fetch('/api/admin/upload-candidate', {
+        method: 'POST',
+        body: formData
+    });
+    
+    if(response.ok) alert("Candidate live!");
+}
+</script>

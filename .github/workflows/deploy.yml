@@ -1,0 +1,54 @@
+name: Deploy Afroverseas to GCP
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Build and Push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          no-cache: true 
+          tags: elvispro1993/afroverseas-backend:latest
+
+      - name: Copy Compose File to Server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.GCP_IP }}
+          username: ${{ secrets.GCP_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "docker-compose.prod.yml,index.html"
+          target: "~/afroverseas/"
+
+      - name: Deploy on GCP VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.GCP_IP }}
+          username: ${{ secrets.GCP_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd ~/afroverseas
+            
+            # 1. Pull latest image
+            docker compose -f docker-compose.prod.yml pull
+            
+            # 2. Force recreate containers (Fresh Start)
+            docker compose -f docker-compose.prod.yml up -d --remove-orphans --force-recreate
+            
+            # 3. Nuclear Cleanup (Prevent disk from filling up with old videos/images)
+            docker system prune -af

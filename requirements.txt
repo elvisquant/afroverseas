@@ -1,0 +1,23 @@
+# Web Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+
+# Database (Postgres + ORM)
+sqlalchemy==2.0.25
+psycopg2-binary==2.9.9
+
+# Security and Authentication
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+python-multipart==0.0.6
+
+# HTTP Client (For Google OAuth and API calls)
+httpx==0.26.0
+
+# Environment and Data Validation
+pydantic==2.5.3
+pydantic-settings==2.1.0
+python-dotenv==1.0.0
+
+# Mail and Notifications (Optional but recommended for your Lead logic)
+fastapi-mail==1.4.1
