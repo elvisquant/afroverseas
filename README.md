@@ -63,6 +63,72 @@ The platform is composed of:
   
   .Detailed architecture diagrams and decision records are available in the docs/ directory.
 
+┌─────────────────────────────┐
+│        Developers           │
+│  - GitHub PRs & Commits     │
+└─────────────┬───────────────┘
+              │
+              ▼
+┌─────────────────────────────-┐
+│       GitHub Repository      │
+│  - app/                      │
+│  - infra/                    │
+│  - monitoring/               │
+│  - policies/                 │
+└─────────────┬──────────────-─┘
+              │
+              ▼
+┌─────────────────────────────────────────────┐
+│               GitHub Actions CI/CD          │
+│                                             │
+│  ┌───────────────┐  ┌─────────────────────┐ │
+│  │ Infra Pipeline │  │ App Pipeline       │ │
+│  │ (Terraform)    │  │ - Build & Scan     │ │
+│  │ - Plan/Apply   │  │ - Trivy Scan       │ │
+│  │ - Policy Check │  │ - SonarQube        │ │
+│  └───────┬───────┘  └─────────┬───────────┘ │
+│          │                    │             │
+│          ▼                    ▼             │
+│   Terraform Apply         Push Image to     │
+│   (State & Modules)       Container Registry│
+└───────────┬────────────────────┬────────────┘
+            │                    │
+            ▼                    ▼
+┌────────────────────────────---------------───┐
+│     Google Cloud Platform                    │
+│      - Cloud Run (FastAPI + Front)           │
+│      - Cloud SQL (PostgreSQL)                │
+│      - Secret Manager                        │
+│      - IAM & VPC                             │
+└───────────--------┬──────────────-------─────┘
+                    │
+                    ▼
+┌───────────────---------------────────────────┐
+│     Observability & Monitoring               │
+│        - Prometheus Metrics                  │
+│        - Grafana Dashboards                  │
+│        - SLOs & Alerts                       │
+│        - Error Budget Enforcement            │
+└─────────----------┬──────────────────--------┘
+                    │
+                    ▼
+┌─────────────────────────────---------------──┐
+│     Security & Compliance                    │
+│        - Trivy Image Scans                   │
+│        - SonarQube Code Scans                │
+│        - Policy-as-Code Enforcement          │
+│        - Automated Reports                   │
+└───────────---------┬────────────────---------┘
+                     │
+                     ▼
+┌──────────────────────────────---------------─┐
+│       Users                                  │
+│         - Access via afroverseas.com         │
+│         - Requests handled via HTTPS         │
+│         - Response delivered from Cloud Run  │
+└───────────────────────────---------------────┘
+
+
 
 
 Why This Platform Exists
