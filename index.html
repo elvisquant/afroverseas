@@ -1,154 +1,238 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Afroverseas - Premium Overseas Recruitment</title>
-    
+
     <!-- Tailwind CSS & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap"
+        rel="stylesheet">
 
     <style>
-        :root { 
-            --afro-blue: #0056A4; 
-            --afro-green: #2D9C3C; 
-            --afro-bg: #F8F9FB; 
+        :root {
+            --afro-blue: #0056A4;
+            --afro-green: #2D9C3C;
+            --afro-bg: #F8F9FB;
         }
 
-        body { 
-            font-family: 'Plus Jakarta Sans', sans-serif; 
-            -webkit-tap-highlight-color: transparent; 
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            -webkit-tap-highlight-color: transparent;
             background-color: var(--afro-bg);
             overscroll-behavior-y: contain;
         }
 
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
-        
-        /* Smooth Page Transitions */
-        .page-fade { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        
-        .drawer-transition { transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1); }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .safe-area-bottom {
+            padding-bottom: env(safe-area-inset-bottom);
+        }
+
+        /* Animations */
+        .page-fade {
+            animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .drawer-transition {
+            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+        }
 
         /* Splash Loader */
-        #splash-screen { 
-            position: fixed; 
-            inset: 0; 
-            background: white; 
-            z-index: 1000; 
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            justify-content: center; 
-            transition: opacity 0.6s ease; 
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease;
         }
 
-        .pulse-logo { animation: pulse 2s infinite; }
-        @keyframes pulse { 
-            0% { transform: scale(0.95); opacity: 0.8; } 
-            50% { transform: scale(1); opacity: 1; } 
-            100% { transform: scale(0.95); opacity: 0.8; } 
+        .pulse-logo {
+            animation: pulse 2s infinite;
         }
 
-        /* High-End Glassmorphism */
-        .glass { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); }
-        
-        /* Skeleton Screen Animation */
-        .skeleton { 
-            background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%); 
-            background-size: 200% 100%; 
-            animation: loading 1.5s infinite; 
-        }
-        @keyframes loading { to { background-position-x: -200%; } }
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
 
-        /* Calendar Styling */
-        .calendar-day.selected { 
-            background-color: var(--afro-blue); 
-            color: white; 
-            box-shadow: 0 10px 20px -5px rgba(0, 86, 164, 0.4); 
+            50% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(0.95);
+                opacity: 0.8;
+            }
+        }
+
+        /* UI Components */
+        .glass {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+        }
+
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e8e8e8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+
+        @keyframes loading {
+            to {
+                background-position-x: -200%;
+            }
+        }
+
+        .calendar-day.selected {
+            background-color: var(--afro-blue);
+            color: white;
+            box-shadow: 0 10px 20px -5px rgba(0, 86, 164, 0.4);
             transform: scale(1.05);
         }
 
-        /* Payment UI Active State */
-        .payment-card.active { 
-            border-color: var(--afro-blue); 
-            background: #f0f7ff; 
+        .payment-card.active {
+            border-color: var(--afro-blue);
+            background: #f0f7ff;
             box-shadow: inset 0 0 0 2px var(--afro-blue);
         }
 
-        /* Custom Dropdown Styling */
-        select { -webkit-appearance: none; appearance: none; }
+        /* Realistic Visa Card UI */
+        .visa-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #454545 100%);
+        }
     </style>
 </head>
+
 <body class="text-gray-900 overflow-hidden select-none">
 
-    <!-- SPLASH SCREEN (Native Feel Loading) -->
+    <!-- SPLASH SCREEN -->
     <div id="splash-screen">
         <div class="relative text-center">
-            <div class="w-28 h-28 rounded-full border-4 border-[#0056A4] flex items-center justify-center bg-white shadow-2xl pulse-logo mx-auto overflow-hidden">
+            <div
+                class="w-32 h-32 rounded-full border-4 border-[#0056A4] flex items-center justify-center bg-white shadow-2xl pulse-logo mx-auto overflow-hidden">
                 <img src="/static/logo.jpg" alt="Logo" class="w-full h-full object-cover">
             </div>
-            <p class="mt-6 font-black text-[#0056A4] tracking-[0.3em] text-[10px] uppercase">Afroverseas Global</p>
+            <p class="mt-6 font-black text-[#0056A4] tracking-[0.4em] text-[10px] uppercase">Afroverseas Global</p>
         </div>
     </div>
 
     <!-- 1. HEADER -->
-    <header class="fixed top-0 left-0 right-0 h-20 glass border-b border-gray-100 flex items-center justify-between px-6 z-50">
+    <header
+        class="fixed top-0 left-0 right-0 h-20 glass border-b border-gray-100 flex items-center justify-between px-6 z-50">
         <div class="flex items-center gap-3">
-            <div class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md overflow-hidden border border-gray-50">
+            <div
+                class="w-12 h-12 bg-white rounded-full flex items-center justify-center shadow-md overflow-hidden border border-gray-50">
                 <img src="/static/logo.jpg" alt="Afroverseas" class="w-full h-full object-cover">
             </div>
             <div>
                 <h1 id="header-title" class="text-lg font-black tracking-tight text-[#0056A4]">Afroverseas</h1>
-                <p class="text-[9px] font-bold text-[#2D9C3C] uppercase tracking-widest leading-none">The Future is Africa</p>
+                <p class="text-[9px] font-bold text-[#2D9C3C] uppercase tracking-widest leading-none">Premium
+                    Recruitment</p>
             </div>
         </div>
-        <button class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center active:scale-90 transition-transform">
-            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <button
+            class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
         </button>
     </header>
 
-    <!-- 2. MAIN APP CONTENT -->
-    <main id="app-content" class="absolute inset-0 top-20 bottom-24 overflow-y-auto hide-scrollbar px-5 pt-6 pb-32"></main>
+    <!-- 2. MAIN CONTENT AREA -->
+    <main id="app-content" class="absolute inset-0 top-20 bottom-24 overflow-y-auto hide-scrollbar px-5 pt-6 pb-32">
+    </main>
 
     <!-- 3. BOTTOM NAVIGATION -->
-    <nav class="fixed bottom-0 left-0 right-0 h-24 bg-white border-t border-gray-100 flex items-center justify-around px-4 z-50 safe-area-bottom shadow-[0_-10px_40px_rgba(0,0,0,0.06)]">
-        <a href="javascript:void(0)" onclick="loadPage('home')" class="nav-item flex flex-col items-center justify-center w-full gap-1 group active" data-page="home">
+    <nav
+        class="fixed bottom-0 left-0 right-0 h-24 bg-white border-t border-gray-100 flex items-center justify-around px-4 z-50 safe-area-bottom shadow-[0_-10px_40px_rgba(0,0,0,0.06)]">
+        <a href="javascript:void(0)" onclick="loadPage('home')"
+            class="nav-item flex flex-col items-center justify-center w-full gap-1 group active" data-page="home">
             <div class="p-2.5 rounded-2xl group-[.active]:bg-blue-50 transition-all">
-                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-width="2.5"
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
+                    </path>
+                </svg>
             </div>
-            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Explore</span>
+            <span
+                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Explore</span>
         </a>
-        <a href="javascript:void(0)" onclick="loadPage('jobs')" class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="jobs">
+        <a href="javascript:void(0)" onclick="loadPage('jobs')"
+            class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="jobs">
             <div class="p-2.5 rounded-2xl group-[.active]:bg-blue-50 transition-all">
-                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-width="2.5"
+                        d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                    </path>
+                </svg>
             </div>
-            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Jobs</span>
+            <span
+                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Jobs</span>
         </a>
-        <a href="javascript:void(0)" onclick="loadPage('employees')" class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="employees">
+        <a href="javascript:void(0)" onclick="loadPage('employees')"
+            class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="employees">
             <div class="p-2.5 rounded-2xl group-[.active]:bg-blue-50 transition-all">
-                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-width="2.5"
+                        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z">
+                    </path>
+                </svg>
             </div>
-            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Experts</span>
+            <span
+                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Experts</span>
         </a>
-        <a href="javascript:void(0)" onclick="loadPage('appointment')" class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="appointment">
+        <a href="javascript:void(0)" onclick="loadPage('appointment')"
+            class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="appointment">
             <div class="p-2.5 rounded-2xl group-[.active]:bg-blue-50 transition-all">
-                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor"
+                    viewBox="0 0 24 24">
+                    <path stroke-width="2.5"
+                        d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                    </path>
+                </svg>
             </div>
-            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Book</span>
+            <span
+                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Book</span>
         </a>
     </nav>
 
-    <!-- 5. MULTI-STEP WIZARD DRAWER -->
-    <div id="drawer-overlay" class="fixed inset-0 bg-black/70 z-[60] hidden backdrop-blur-md transition-opacity" onclick="closeDrawer()"></div>
-    <div id="lead-drawer" class="fixed bottom-0 left-0 right-0 bg-white z-[70] rounded-t-[3.5rem] p-8 translate-y-full drawer-transition safe-area-bottom shadow-2xl overflow-y-auto max-h-[95vh] hide-scrollbar">
+    <!-- MULTI-STEP DRAWER -->
+    <div id="drawer-overlay" class="fixed inset-0 bg-black/70 z-[60] hidden backdrop-blur-md transition-opacity"
+        onclick="closeDrawer()"></div>
+    <div id="lead-drawer"
+        class="fixed bottom-0 left-0 right-0 bg-white z-[70] rounded-t-[3.5rem] p-8 translate-y-full drawer-transition safe-area-bottom shadow-2xl overflow-y-auto max-h-[95vh] hide-scrollbar">
         <div class="w-16 h-1.5 bg-gray-200 rounded-full mx-auto mb-8"></div>
-        
+
         <!-- STEP HEADER -->
         <div class="flex justify-between items-center mb-8">
-            <h2 id="drawer-title" class="text-2xl font-black text-[#0056A4] tracking-tight">Consultancy</h2>
+            <h2 id="drawer-title" class="text-2xl font-black text-[#0056A4] tracking-tight">Expert Advice</h2>
             <div id="step-indicator" class="flex gap-1.5">
                 <div class="step-dot w-6 h-1.5 rounded-full bg-[#0056A4]"></div>
                 <div class="step-dot w-2 h-1.5 rounded-full bg-gray-100"></div>
@@ -162,13 +246,23 @@
         <div id="step-1" class="step-container animate-fade-in">
             <p class="text-gray-500 mb-8 text-sm font-semibold italic">Choose your primary path:</p>
             <div class="grid grid-cols-2 gap-4">
-                <button onclick="selectService('VISA')" class="flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 border-gray-50 bg-gray-50 hover:border-[#0056A4] transition-all">
-                    <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-4 shadow-sm"><svg class="w-7 h-7 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg></div>
-                    <span class="text-[10px] font-black uppercase text-[#0056A4] tracking-widest">Visa Process</span>
+                <button onclick="selectService('VISA')"
+                    class="flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 border-gray-50 bg-gray-50 hover:border-[#0056A4] transition-all">
+                    <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-4 shadow-sm"><svg
+                            class="w-7 h-7 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="2.5"
+                                d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
+                        </svg></div><span class="text-[10px] font-black uppercase text-[#0056A4] tracking-widest">Visa
+                        Process</span>
                 </button>
-                <button onclick="selectService('JOB')" class="flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 border-gray-50 bg-gray-50 hover:border-[#2D9C3C] transition-all">
-                    <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-4 shadow-sm"><svg class="w-7 h-7 text-[#2D9C3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
-                    <span class="text-[10px] font-black uppercase text-[#2D9C3C] tracking-widest">Job Search</span>
+                <button onclick="selectService('JOB')"
+                    class="flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 border-gray-50 bg-gray-50 hover:border-[#2D9C3C] transition-all">
+                    <div class="w-14 h-14 bg-white rounded-2xl flex items-center justify-center mb-4 shadow-sm"><svg
+                            class="w-7 h-7 text-[#2D9C3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-width="2.5"
+                                d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg></div><span class="text-[10px] font-black uppercase text-[#2D9C3C] tracking-widest">Job
+                        Search</span>
                 </button>
             </div>
         </div>
@@ -177,185 +271,185 @@
         <div id="step-2" class="step-container hidden animate-fade-in">
             <p class="text-gray-500 mb-6 text-sm font-semibold italic">Where are you heading?</p>
             <div class="space-y-4">
-                <div class="relative">
-                    <select id="lead-country" class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
-                        <option value="">Select Destination</option>
-                        <option value="Saudi Arabia">Saudi Arabia</option>
-                        <option value="United Arab Emirates">UAE (Dubai)</option>
-                        <option value="Qatar">Qatar</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Europe">Schengen Europe</option>
-                    </select>
-                </div>
-                <select id="visa-type-container" class="hidden w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
+                <select id="lead-country"
+                    class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
+                    <option value="">Select Destination</option>
+                    <option value="Saudi Arabia">Saudi Arabia</option>
+                    <option value="UAE">UAE (Dubai)</option>
+                    <option value="Qatar">Qatar</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Europe">Europe</option>
+                </select>
+                <select id="visa-type-container"
+                    class="hidden w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
                     <option value="">Visa Type</option>
-                    <option value="Employment">Employment Visa</option>
-                    <option value="Visit">Tourist / Visit</option>
-                    <option value="Business">Business Entry</option>
+                    <option value="Employment">Employment</option>
+                    <option value="Visit">Tourist</option>
+                    <option value="Business">Business</option>
                 </select>
-                <select id="work-type-container" class="hidden w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
+                <select id="work-type-container"
+                    class="hidden w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
                     <option value="">Professional Field</option>
-                    <option value="Construction">Engineering / Construction</option>
-                    <option value="Hospitality">Catering / Hotel</option>
-                    <option value="Logistics">Driving / Warehouse</option>
-                    <option value="Healthcare">Nurse / Caregiver</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Hospitality">Catering</option>
+                    <option value="Healthcare">Health</option>
                 </select>
-                <button onclick="nextStep(3)" class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-blue-100">Continue →</button>
+                <button onclick="nextStep(3)"
+                    class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] shadow-xl shadow-blue-100">Continue
+                    →</button>
             </div>
         </div>
 
         <!-- STEP 3: CONTACT (WhatsApp Required) -->
         <div id="step-3" class="step-container hidden animate-fade-in">
-            <p class="text-gray-500 mb-6 text-sm font-semibold italic">WhatsApp for instant verification:</p>
+            <p class="text-gray-500 mb-6 text-sm font-semibold italic">Identity Verification:</p>
             <div class="space-y-4">
-                <input type="tel" id="lead-whatsapp" placeholder="WhatsApp (e.g. 257...)" class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none focus:ring-2 focus:ring-[#2D9C3C] transition-all">
-                <input type="email" id="lead-email" placeholder="Email (Optional)" class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none focus:ring-2 focus:ring-[#0056A4] transition-all">
-                
-                <button id="contact-next" onclick="nextStep(4)" class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] opacity-50 cursor-not-allowed" disabled>
-                    Set Appointment Date →
-                </button>
+                <input type="tel" id="lead-whatsapp" placeholder="WhatsApp (e.g. 257...)"
+                    oninput="checkContactValidation()"
+                    class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none focus:ring-2 focus:ring-[#2D9C3C] transition-all">
+                <input type="email" id="lead-email" placeholder="Email (Optional)"
+                    class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none focus:ring-2 focus:ring-[#0056A4] transition-all">
+                <button id="contact-next" onclick="nextStep(4)"
+                    class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] opacity-50 cursor-not-allowed"
+                    disabled>Set Appointment Date →</button>
             </div>
         </div>
 
         <!-- STEP 4: CALENDAR -->
         <div id="step-4" class="step-container hidden animate-fade-in">
-            <p class="text-gray-500 mb-6 text-sm font-semibold text-center italic">Pick your preferred slot:</p>
+            <p class="text-gray-500 mb-6 text-sm font-semibold text-center italic">Available slots for consultation:</p>
             <div id="calendar-grid" class="grid grid-cols-4 gap-3 mb-8"></div>
-            <button id="calendar-next" onclick="nextStep(5)" class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] opacity-50 cursor-not-allowed" disabled>
-                Review & Pay →
-            </button>
+            <button id="calendar-next" onclick="nextStep(5)"
+                class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-[0.2em] opacity-50 cursor-not-allowed"
+                disabled>Review & Pay →</button>
         </div>
 
         <!-- STEP 5: PAYMENT ENGINE -->
         <div id="step-5" class="step-container hidden animate-fade-in pb-10">
-            <!-- Price Banner -->
-            <div class="bg-gradient-to-br from-[#0056A4] to-blue-800 p-8 rounded-[2.5rem] mb-8 text-center text-white shadow-2xl relative overflow-hidden">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-white/10 rounded-full"></div>
+            <div
+                class="bg-gradient-to-br from-[#0056A4] to-blue-800 p-8 rounded-[2.5rem] mb-8 text-center text-white shadow-2xl relative overflow-hidden">
                 <span class="text-[10px] font-black uppercase tracking-[0.3em] opacity-60">Consultation Fee</span>
                 <h3 class="text-4xl font-black mt-2">$50.00</h3>
                 <p class="text-[10px] font-bold mt-1 opacity-80">Approx. 150,000 BIF</p>
             </div>
 
-            <p class="text-gray-400 text-[10px] font-black uppercase text-center mb-4 tracking-widest">Select Payment Method</p>
             <div class="grid grid-cols-4 gap-3 mb-8">
-                <button onclick="showPaymentUI('VISA')" class="payment-card p-4 rounded-2xl border-2 border-gray-50 bg-gray-50 flex items-center justify-center transition-all active:scale-90"><svg class="w-7 h-7 text-blue-900" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></button>
-                <button onclick="showPaymentUI('CRYPTO')" class="payment-card p-4 rounded-2xl border-2 border-gray-50 bg-gray-50 flex items-center justify-center transition-all active:scale-90"><svg class="w-7 h-7 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg></button>
-                <button onclick="showPaymentUI('MOMO')" class="payment-card p-4 rounded-2xl border-2 border-gray-50 bg-gray-50 flex items-center justify-center transition-all active:scale-90"><svg class="w-7 h-7 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><path d="M1 1h22v22H1z"/></svg></button>
-                <button onclick="showPaymentUI('BANK')" class="payment-card p-4 rounded-2xl border-2 border-gray-50 bg-gray-50 flex items-center justify-center transition-all active:scale-90"><svg class="w-7 h-7 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22z"/></svg></button>
+                <button onclick="showPaymentUI('VISA')"
+                    class="payment-card p-4 rounded-2xl border-2 border-gray-50 bg-gray-50 flex items-center justify-center transition-all active:scale-90"><svg
+                        class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M16 12h4m-4 4h4m-12-8h8m-8 4h8M4 6h16a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V8a2 2 0 012-2z"
+                            stroke="#0033A0" stroke-width="2" stroke-linecap="round" />
+                    </svg></button>
+                <button onclick="showPaymentUI('CRYPTO')"
+                    class="payment-card p-4 rounded-2xl border-2 border-gray-50 bg-gray-50 flex items-center justify-center transition-all active:scale-90"><svg
+                        class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#F7931A" stroke-width="2" />
+                        <path d="M9 12h6m-3-3v6" stroke="#F7931A" stroke-width="2" stroke-linecap="round" />
+                    </svg></button>
+                <button onclick="showPaymentUI('MOMO')"
+                    class="payment-card p-4 rounded-2xl border-2 border-gray-50 bg-gray-50 flex items-center justify-center transition-all active:scale-90"><svg
+                        class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="9" stroke="#EAB308" stroke-width="2" />
+                        <path d="M12 8v8m-3-3l3 3 3-3" stroke="#EAB308" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg></button>
+                <button onclick="showPaymentUI('BANK')"
+                    class="payment-card p-4 rounded-2xl border-2 border-gray-50 bg-gray-50 flex items-center justify-center transition-all active:scale-90"><svg
+                        class="w-8 h-8" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 21h18M3 10h18M12 10v11M4 10l8-7 8 7" stroke="#374151" stroke-width="2"
+                            stroke-linecap="round" />
+                    </svg></button>
             </div>
 
-            <!-- PAYMENT DETAILS CONTAINER -->
-            <div id="payment-details-view" class="bg-gray-50 rounded-[2.5rem] p-8 mb-8 border border-gray-100 min-h-[160px] flex items-center justify-center text-center">
-                <p class="text-gray-400 text-xs font-bold leading-relaxed italic">Tap a method above to get secure payment instructions.</p>
+            <div id="payment-details-view"
+                class="bg-gray-50 rounded-[2.5rem] p-8 mb-8 border border-gray-100 min-h-[220px] flex items-center justify-center text-center transition-all">
+                <p class="text-gray-400 text-xs font-bold italic">Tap a method above to get secure payment instructions.
+                </p>
             </div>
 
-            <!-- RECEIPT UPLOAD -->
             <div class="mb-10">
-                <label class="block text-[10px] font-black uppercase text-gray-400 mb-4 px-2 tracking-widest">Confirm with Receipt</label>
-                <div class="relative w-full h-24 border-2 border-dashed border-green-200 rounded-[2rem] bg-green-50/50 flex items-center justify-center group transition-all overflow-hidden">
-                    <input type="file" id="payment-receipt" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="checkPaymentValidation()">
+                <label
+                    class="block text-[10px] font-black uppercase text-gray-400 mb-4 px-2 tracking-widest text-center">Confirm
+                    with Transaction Receipt</label>
+                <div
+                    class="relative w-full h-24 border-2 border-dashed border-green-200 rounded-[2rem] bg-green-50/50 flex items-center justify-center transition-all overflow-hidden">
+                    <input type="file" id="payment-receipt" accept="image/*"
+                        class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="checkPaymentValidation()">
                     <div id="upload-placeholder" class="text-[#2D9C3C] font-black text-xs flex items-center gap-3">
-                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M12 4v16m8-8H4"/></svg></div>
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-sm"><svg
+                                class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="3" d="M12 4v16m8-8H4" />
+                            </svg></div>
                         Attach Screenshot
                     </div>
                 </div>
             </div>
 
-            <button id="final-pay-submit" onclick="submitLeadWithFile()" class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-[0.2em] shadow-2xl shadow-green-100 opacity-50 cursor-not-allowed transition-all" disabled>
-                Finalize & Book
-            </button>
+            <button id="final-pay-submit" onclick="submitLeadWithFile()"
+                class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-[0.2em] shadow-2xl shadow-green-100 opacity-50 cursor-not-allowed transition-all"
+                disabled>Finalize & Book</button>
         </div>
     </div>
 
-    <!-- SCRIPTS ENGINE -->
     <script>
         const API_URL = "/api";
-        let selectedCandidates = [];
         let bookingData = { service: '', country: '', subType: '', email: '', whatsapp: '', date: '', method: '' };
 
-        // --- PAYMENT UI LOGIC ---
+        // --- PAYMENT UI LOGIC (REALISTIC CARD UI) ---
         function showPaymentUI(method) {
             bookingData.method = method;
             document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('active', 'border-[#0056A4]'));
             event.currentTarget.classList.add('active', 'border-[#0056A4]');
-
             const view = document.getElementById('payment-details-view');
             view.classList.add('page-fade');
-            
+
             let html = '';
-            if(method === 'VISA') {
+            if (method === 'VISA') {
                 html = `
-                <div class="w-full space-y-4">
-                    <input type="text" placeholder="Cardholder Full Name" class="w-full p-4 rounded-xl border-none ring-1 ring-gray-200 text-xs font-bold outline-none">
-                    <div class="relative"><input type="text" placeholder="0000 0000 0000 0000" class="w-full p-4 rounded-xl border-none ring-1 ring-gray-200 text-xs font-bold outline-none"></div>
-                    <div class="flex gap-4">
-                        <input type="text" placeholder="MM/YY" class="w-1/2 p-4 rounded-xl border-none ring-1 ring-gray-200 text-xs font-bold outline-none">
-                        <input type="password" placeholder="CVC" class="w-1/2 p-4 rounded-xl border-none ring-1 ring-gray-200 text-xs font-bold outline-none">
+                <div class="w-full space-y-4 text-left">
+                    <div class="visa-bg p-6 rounded-2xl shadow-xl text-white relative overflow-hidden mb-4">
+                        <div class="flex justify-between items-start mb-8"><span class="italic font-bold opacity-80">Afroverseas Pay</span><span class="font-black text-xl italic">VISA</span></div>
+                        <div class="text-xl font-bold tracking-[0.2em] mb-4">•••• •••• •••• ••••</div>
+                        <div class="flex justify-between text-[10px] font-black opacity-60 uppercase"><span>Card Holder</span><span>Expires</span></div>
                     </div>
+                    <input type="text" placeholder="Full Name on Card" class="w-full p-4 rounded-xl border-none ring-1 ring-gray-200 text-xs font-bold outline-none focus:ring-[#0056A4]">
+                    <input type="text" placeholder="Card Number" class="w-full p-4 rounded-xl border-none ring-1 ring-gray-200 text-xs font-bold outline-none focus:ring-[#0056A4]">
+                    <div class="flex gap-4"><input type="text" placeholder="MM/YY" class="w-1/2 p-4 rounded-xl border-none ring-1 ring-gray-200 text-xs font-bold outline-none focus:ring-[#0056A4]"><input type="text" placeholder="CVC" class="w-1/2 p-4 rounded-xl border-none ring-1 ring-gray-200 text-xs font-bold outline-none focus:ring-[#0056A4]"></div>
                 </div>`;
-            } else if(method === 'CRYPTO') {
-                html = `
-                <div class="space-y-4">
-                    <div class="bg-orange-50 text-orange-600 p-3 rounded-xl text-[9px] font-black uppercase tracking-widest">USDT TRC20 (ONLY)</div>
-                    <p class="text-xs font-black break-all bg-white p-4 rounded-2xl border border-gray-100 select-all shadow-inner">TXaAfroverseasWalletID123xyz888</p>
-                    <p class="text-[9px] text-gray-400 font-bold italic">Click the address above to copy.</p>
-                </div>`;
-            } else if(method === 'MOMO') {
-                html = `
-                <div class="space-y-4">
-                    <div class="flex justify-center gap-4">
-                        <div class="text-center"><p class="text-[8px] font-black uppercase text-gray-400">Ecocash</p><p class="text-lg font-black text-yellow-600">*123#...</p></div>
-                        <div class="w-px h-10 bg-gray-200"></div>
-                        <div class="text-center"><p class="text-[8px] font-black uppercase text-gray-400">Lumicash</p><p class="text-lg font-black text-red-600">*150#...</p></div>
-                    </div>
-                    <div class="bg-gray-100 p-4 rounded-2xl text-center">
-                        <p class="text-[10px] font-black uppercase text-[#0056A4]">AGENT CODE: 998877</p>
-                    </div>
-                </div>`;
-            } else if(method === 'BANK') {
-                html = `
-                <div class="text-left space-y-3">
-                    <div><p class="text-[8px] font-black uppercase text-gray-400">Bank Name</p><p class="text-xs font-black">KCB / BCB Burundi</p></div>
-                    <div><p class="text-[8px] font-black uppercase text-gray-400">Account Number</p><p class="text-xs font-black text-[#0056A4]">001-22334455-01</p></div>
-                    <div><p class="text-[8px] font-black uppercase text-gray-400">Beneficiary</p><p class="text-xs font-bold">Afroverseas Consulting Group</p></div>
-                </div>`;
+            } else if (method === 'CRYPTO') {
+                html = `<div class="space-y-4"><div class="bg-orange-50 text-orange-600 p-3 rounded-xl text-[9px] font-black uppercase tracking-widest">USDT TRC20 (ONLY)</div><p class="text-xs font-black break-all bg-white p-4 rounded-2xl border border-gray-100 select-all shadow-inner">TXaAfroverseasWalletID123xyz888</p><p class="text-[9px] text-gray-400 font-bold italic">Tap the address to copy.</p></div>`;
+            } else if (method === 'MOMO') {
+                html = `<div class="space-y-4"><div class="flex justify-center gap-4 text-center"><div><p class="text-[8px] font-black uppercase text-gray-400">Ecocash</p><p class="text-lg font-black text-yellow-600">*123#</p></div><div class="w-px h-10 bg-gray-200"></div><div><p class="text-[8px] font-black uppercase text-gray-400">Lumicash</p><p class="text-lg font-black text-red-600">*150#</p></div></div><div class="bg-[#0056A4] text-white p-4 rounded-2xl text-center shadow-lg"><p class="text-[10px] font-black uppercase tracking-widest opacity-60">Merchant Agent Code</p><p class="text-xl font-black">998877</p></div></div>`;
+            } else if (method === 'BANK') {
+                html = `<div class="text-left space-y-3"><div><p class="text-[8px] font-black uppercase text-gray-400 tracking-widest">Bank / Institution</p><p class="text-sm font-black">KCB / BCB Burundi</p></div><div><p class="text-[8px] font-black uppercase text-gray-400 tracking-widest">Account Number</p><p class="text-base font-black text-[#0056A4] select-all">001-22334455-01</p></div><div><p class="text-[8px] font-black uppercase text-gray-400 tracking-widest">Beneficiary Name</p><p class="text-xs font-bold">Afroverseas Consulting Group</p></div></div>`;
             }
             view.innerHTML = html;
             setTimeout(() => view.classList.remove('page-fade'), 300);
             checkPaymentValidation();
         }
 
-        function checkPaymentValidation() {
-            const file = document.getElementById('payment-receipt').files[0];
-            const btn = document.getElementById('final-pay-submit');
-            if(file && bookingData.method) {
-                btn.disabled = false; btn.classList.remove('opacity-50', 'cursor-not-allowed');
-                document.getElementById('upload-placeholder').innerHTML = `<span class="text-blue-600">✓ ${file.name.substring(0,10)}...</span>`;
-            }
-        }
-
-        // --- SUBMISSION LOGIC ---
+        // --- SUBMISSION ENGINE ---
         async function submitLeadWithFile() {
             const formData = new FormData();
             formData.append("type", "PAID_APPOINTMENT");
             formData.append("service", bookingData.service);
             formData.append("country", document.getElementById('lead-country').value);
             formData.append("whatsapp", document.getElementById('lead-whatsapp').value);
+            formData.append("email", document.getElementById('lead-email').value);
             formData.append("date", bookingData.date);
             formData.append("payment_method", bookingData.method);
             formData.append("receipt", document.getElementById('payment-receipt').files[0]);
 
             const btn = document.getElementById('final-pay-submit');
-            btn.innerHTML = `<span class="animate-pulse">Verifying Transaction...</span>`;
-            
+            btn.innerHTML = `<span class="animate-pulse">Confirming...</span>`;
             try {
                 const res = await fetch(`${API_URL}/submit-lead`, { method: 'POST', body: formData });
-                if(res.ok) { closeDrawer(); showSuccess(); }
-                else { alert("Error connecting to payment gateway."); btn.innerHTML = "Finalize & Book"; }
-            } catch(e) { alert("Server error."); }
+                if (res.ok) { closeDrawer(); showSuccess(); }
+            } catch (e) { alert("Server connectivity issue."); }
         }
 
-        // --- SPA ENGINE ---
+        // --- CORE SPA LOGIC ---
         async function loadPage(page) {
             const content = document.getElementById('app-content');
             const title = document.getElementById('header-title');
@@ -363,16 +457,15 @@
             document.querySelector(`[data-page="${page}"]`).classList.add('active');
             content.classList.add('page-fade');
             renderSkeleton();
-
-            if(page === 'home' || page === 'jobs') { title.innerText = "Active Vacancies"; await renderJobs(); }
-            else if(page === 'employees') { title.innerText = "Verified Experts"; await renderCandidates(); }
-            else if(page === 'appointment') { openLeadDrawer(); }
+            if (page === 'home' || page === 'jobs') { title.innerText = "Opportunities"; await renderJobs(); }
+            else if (page === 'employees') { title.innerText = "Experts Pool"; await renderCandidates(); }
+            else if (page === 'appointment') { openLeadDrawer(); }
             setTimeout(() => content.classList.remove('page-fade'), 400);
         }
 
         function renderSkeleton() {
             const container = document.getElementById('app-content');
-            container.innerHTML = `<div class="space-y-6">${Array(3).fill(`<div class="bg-white rounded-[2.5rem] p-8 space-y-4"><div class="h-6 skeleton rounded-lg"></div><div class="h-4 w-1/2 skeleton rounded-lg opacity-40"></div><div class="h-14 w-full skeleton rounded-[1.5rem]"></div></div>`).join('')}</div>`;
+            container.innerHTML = `<div class="space-y-6">${Array(3).fill(`<div class="bg-white rounded-[2.5rem] p-8 space-y-4"><div class="h-6 skeleton rounded-lg"></div><div class="h-4 skeleton rounded-lg opacity-40"></div><div class="h-14 w-full skeleton rounded-[1.5rem]"></div></div>`).join('')}</div>`;
         }
 
         async function renderJobs() {
@@ -380,12 +473,10 @@
             try {
                 const res = await fetch(`${API_URL}/jobs`);
                 const jobs = await res.json();
-                let html = `<div class="mb-10 p-2 bg-white rounded-[2rem] shadow-sm flex items-center border border-gray-50"><div class="pl-4 text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div><input type="text" placeholder="Find Overseas Careers..." class="w-full bg-transparent border-none py-4 px-3 outline-none text-xs font-bold"></div>`;
-                jobs.forEach(job => {
-                    html += `<div class="bg-white rounded-[3rem] shadow-sm p-10 mb-8 border border-gray-50 active:scale-95 transition-all"><h3 class="text-xl font-black text-gray-800 mb-1 leading-tight tracking-tight">${job.title}</h3><p class="text-[#0056A4] text-[10px] font-black uppercase mb-8 tracking-[0.2em]">${job.company}</p><div class="flex gap-2 mb-8"><span class="bg-green-50 text-[#2D9C3C] text-[9px] font-black px-4 py-2 rounded-xl border border-green-100 uppercase uppercase">${job.location}</span><span class="bg-blue-50 text-[#0056A4] text-[9px] font-black px-4 py-2 rounded-xl border border-blue-100 uppercase uppercase">${job.experience}</span></div><button onclick="openLeadDrawer()" class="w-full bg-gray-900 text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-widest flex justify-between items-center px-10 shadow-xl shadow-gray-200">Start Application<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg></button></div>`;
-                });
+                let html = `<div class="mb-10 p-2 bg-white rounded-[2rem] shadow-sm flex items-center border border-gray-50"><div class="pl-4 text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div><input type="text" placeholder="Global Vacancies..." class="w-full bg-transparent border-none py-4 px-3 outline-none text-xs font-bold"></div>`;
+                jobs.forEach(job => { html += `<div class="bg-white rounded-[3rem] shadow-sm p-10 mb-8 border border-gray-50 active:scale-95 transition-all"><h3 class="text-xl font-black text-gray-800 mb-1 leading-tight tracking-tight">${job.title}</h3><p class="text-[#0056A4] text-[10px] font-black uppercase mb-8 tracking-[0.2em]">${job.company}</p><div class="flex gap-2 mb-8"><span class="bg-green-50 text-[#2D9C3C] text-[9px] font-black px-4 py-2 rounded-xl border border-green-100 uppercase">${job.location}</span><span class="bg-blue-50 text-[#0056A4] text-[9px] font-black px-4 py-2 rounded-xl border border-blue-100 uppercase">Exp: ${job.experience}</span></div><button onclick="openLeadDrawer()" class="w-full bg-gray-900 text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-widest flex justify-between items-center px-10 shadow-xl shadow-gray-200">Consult Expert<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg></button></div>`; });
                 container.innerHTML = html;
-            } catch (e) { container.innerHTML = `<p class="text-center py-20 text-gray-300 font-bold">Refresh to load opportunities.</p>`; }
+            } catch (e) { container.innerHTML = `<p class="text-center py-20 text-gray-300 font-bold tracking-widest uppercase">Connectivity Lost...</p>`; }
         }
 
         async function renderCandidates() {
@@ -394,20 +485,13 @@
                 const res = await fetch(`${API_URL}/candidates`);
                 const candidates = await res.json();
                 let html = `<div class="space-y-10 pt-4">`;
-                candidates.forEach(c => {
-                    html += `<div class="bg-white rounded-[3.5rem] overflow-hidden shadow-lg border border-gray-100"><div class="aspect-[4/5] bg-black relative"><video class="w-full h-full object-cover opacity-60" src="${c.video_url}" loop muted playsinline></video><div class="absolute bottom-10 left-10 right-10 text-white"><h3 class="text-3xl font-black mb-2 leading-none">${c.name}</h3><p class="text-[#2D9C3C] text-[10px] font-black uppercase tracking-[0.3em] mb-6">${c.skills}</p><button onclick="openLeadDrawer()" class="w-full py-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-widest bg-white text-[#0056A4] shadow-2xl">Reserve Private Session</button></div></div></div>`;
-                });
+                candidates.forEach(c => { html += `<div class="bg-white rounded-[3.5rem] overflow-hidden shadow-lg border border-gray-100"><div class="aspect-[4/5] bg-black relative"><video class="w-full h-full object-cover opacity-60" src="${c.video_url}" loop muted playsinline></video><div class="absolute bottom-10 left-10 right-10 text-white"><h3 class="text-3xl font-black mb-2 leading-none">${c.name}</h3><p class="text-[#2D9C3C] text-[10px] font-black uppercase tracking-[0.3em] mb-6">${c.skills}</p><button onclick="openLeadDrawer()" class="w-full py-5 rounded-[1.5rem] font-black text-[10px] uppercase tracking-widest bg-white text-[#0056A4] shadow-2xl">Reserve Private Session</button></div></div></div>`; });
                 container.innerHTML = html + `</div>`;
-            } catch (e) { container.innerHTML = `<p class="text-center py-20">Syncing with talent pool...</p>`; }
+            } catch (e) { container.innerHTML = `<p class="text-center py-20">Refreshing Experts...</p>`; }
         }
 
-        // --- WIZARD FLOW ---
-        function openLeadDrawer() { 
-            generateCalendar(); 
-            nextStep(1); 
-            document.getElementById('drawer-overlay').classList.remove('hidden'); 
-            document.getElementById('lead-drawer').classList.remove('translate-y-full'); 
-        }
+        // --- DRAWER & WIZARD ---
+        function openLeadDrawer() { generateCalendar(); nextStep(1); document.getElementById('drawer-overlay').classList.remove('hidden'); document.getElementById('lead-drawer').classList.remove('translate-y-full'); }
         function closeDrawer() { document.getElementById('drawer-overlay').classList.add('hidden'); document.getElementById('lead-drawer').classList.add('translate-y-full'); }
         function nextStep(step) {
             document.querySelectorAll('.step-container').forEach(el => el.classList.add('hidden'));
@@ -418,7 +502,7 @@
 
         function selectService(service) {
             bookingData.service = service;
-            if(service === 'VISA') { document.getElementById('visa-type-container').classList.remove('hidden'); document.getElementById('work-type-container').classList.add('hidden'); }
+            if (service === 'VISA') { document.getElementById('visa-type-container').classList.remove('hidden'); document.getElementById('work-type-container').classList.add('hidden'); }
             else { document.getElementById('work-type-container').classList.remove('hidden'); document.getElementById('visa-type-container').classList.add('hidden'); }
             nextStep(2);
         }
@@ -426,29 +510,26 @@
         function generateCalendar() {
             const grid = document.getElementById('calendar-grid'); grid.innerHTML = '';
             for (let i = 1; i <= 12; i++) {
-                const date = new Date(); date.setDate(date.getDate() + i);
-                if(date.getDay() === 0) continue;
-                const d = date.getDate(), m = date.toLocaleString('default',{month:'short'}), w = date.toLocaleString('default',{weekday:'short'});
-                const el = document.createElement('div');
-                el.className = 'calendar-day flex flex-col items-center justify-center p-4 rounded-[1.5rem] bg-gray-50 border border-gray-100 cursor-pointer transition-all active:scale-90';
+                const date = new Date(); date.setDate(date.getDate() + i); if (date.getDay() === 0) continue;
+                const d = date.getDate(), m = date.toLocaleString('default', { month: 'short' }), w = date.toLocaleString('default', { weekday: 'short' });
+                const el = document.createElement('div'); el.className = 'calendar-day flex flex-col items-center justify-center p-4 rounded-[1.5rem] bg-gray-50 border border-gray-100 cursor-pointer transition-all active:scale-90';
                 el.innerHTML = `<span class="text-[8px] uppercase font-black text-gray-400">${w}</span><span class="text-xl font-black my-1">${d}</span><span class="text-[8px] font-black text-[#0056A4]">${m}</span>`;
-                el.onclick = () => {
-                    document.querySelectorAll('.calendar-day').forEach(item => item.classList.remove('selected'));
-                    el.classList.add('selected'); bookingData.date = `${d} ${m}`;
-                    document.getElementById('calendar-next').disabled = false; document.getElementById('calendar-next').classList.remove('opacity-50');
-                    window.navigator.vibrate(15);
-                };
+                el.onclick = () => { document.querySelectorAll('.calendar-day').forEach(item => item.classList.remove('selected')); el.classList.add('selected'); bookingData.date = `${d} ${m}`; document.getElementById('calendar-next').disabled = false; document.getElementById('calendar-next').classList.remove('opacity-50'); window.navigator.vibrate(15); };
                 grid.appendChild(el);
             }
         }
 
-        document.addEventListener('input', (e) => {
-            if(e.target.id === 'lead-whatsapp') {
-                const btn = document.getElementById('contact-next');
-                if(e.target.value.trim().length > 7) { btn.disabled = false; btn.classList.remove('opacity-50'); }
-                else { btn.disabled = true; btn.classList.add('opacity-50'); }
-            }
-        });
+        function checkContactValidation() {
+            const btn = document.getElementById('contact-next');
+            if (document.getElementById('lead-whatsapp').value.trim().length > 7) { btn.disabled = false; btn.classList.remove('opacity-50'); }
+            else { btn.disabled = true; btn.classList.add('opacity-50'); }
+        }
+
+        function checkPaymentValidation() {
+            const file = document.getElementById('payment-receipt').files[0];
+            const btn = document.getElementById('final-pay-submit');
+            if (file && bookingData.method) { btn.disabled = false; btn.classList.remove('opacity-50'); document.getElementById('upload-placeholder').innerHTML = `<span class="text-blue-600 font-bold">✓ Uploaded</span>`; }
+        }
 
         function showSuccess() {
             const content = document.getElementById('app-content');
@@ -459,19 +540,13 @@
                         <svg class="w-16 h-16 text-[#2D9C3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
                     </div>
                     <h1 class="text-3xl font-black mb-4 text-[#0056A4] tracking-tighter">Verification Sent</h1>
-                    <p class="text-gray-400 mb-12 text-sm leading-relaxed font-semibold">Receipt is under review for <b>${bookingData.date}</b>. A confirmation agent will message you on WhatsApp shortly.</p>
-                    <a href="https://wa.me/${myNumber}" class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 active:scale-95 shadow-2xl shadow-green-100">Contact via WhatsApp</a>
+                    <p class="text-gray-400 mb-12 text-sm leading-relaxed font-semibold">Your receipt for <b>${bookingData.date}</b> is under review. You will receive a WhatsApp message shortly.</p>
+                    <a href="https://wa.me/${myNumber}" target="_blank" class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-widest flex items-center justify-center gap-3 shadow-2xl">Consult on WhatsApp</a>
                 </div>`;
         }
 
-        // INIT
-        window.onload = () => { 
-            setTimeout(async () => { 
-                await loadPage('home'); 
-                document.getElementById('splash-screen').style.opacity = '0'; 
-                setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 600); 
-            }, 1800); 
-        };
+        window.onload = () => { setTimeout(async () => { await loadPage('home'); document.getElementById('splash-screen').style.opacity = '0'; setTimeout(() => document.getElementById('splash-screen').style.display = 'none', 600); }, 1800); };
     </script>
 </body>
+
 </html>

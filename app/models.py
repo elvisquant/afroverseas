@@ -1,6 +1,8 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
-from .database import Base 
-import datetime
+from .database import Base
+import datetime, uuid
+
+
 
 class Job(Base):
     __tablename__ = "jobs"
@@ -21,31 +23,34 @@ class Candidate(Base):
     name = Column(String)
     skills = Column(String)
     experience_years = Column(Integer)
-    video_url = Column(String) # Relative path to static/uploads/
-    cv_url = Column(String)    # Relative path to static/uploads/
+    video_url = Column(String)
+    cv_url = Column(String)
     whatsapp = Column(String)
     is_featured = Column(Boolean, default=False)
 
+
+
 class Lead(Base):
-    """Unified Lead table for Consultations and Recruitment"""
     __tablename__ = "leads"
     id = Column(Integer, primary_key=True, index=True)
-    type = Column(String)           # 'PAID_APPOINTMENT' or 'RECRUITMENT'
+    ref_number = Column(String, unique=True) # e.g. AFRO-2024-X123
+    type = Column(String)           
     email = Column(String, nullable=True)
     whatsapp = Column(String)
     
-    # Consultancy Specific Fields
-    service_type = Column(String, nullable=True)     # 'VISA' or 'JOB'
+    # Details from Wizard
+    service_type = Column(String, nullable=True)     
     country = Column(String, nullable=True)
-    sub_type = Column(String, nullable=True)         # e.g., 'Work Visa' or 'Construction'
+    sub_type = Column(String, nullable=True)         
+    
+    # Appointment Details
     appointment_date = Column(String, nullable=True) 
+    arrival_time = Column(String, default="09:00 AM")
+    address = Column(String, default="Afroverseas HQ, City Center Tower, Floor 4")
     
-    # Payment Fields
-    payment_method = Column(String, nullable=True)   # 'VISA', 'CRYPTO', 'MOMO', 'BANK'
-    receipt_url = Column(String, nullable=True)      # Path to the payment proof image
+    # Payment & Verification
+    payment_method = Column(String, nullable=True)   
+    receipt_url = Column(String, nullable=True)      
+    status = Column(String, default="Pending Verification") 
     
-    # Recruitment Specific Fields
-    candidate_ids = Column(String, nullable=True)    # JSON string list of selected IDs
-    
-    message = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)

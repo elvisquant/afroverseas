@@ -21,3 +21,7 @@ python-dotenv==1.0.0
 
 # Mail and Notifications (Optional but recommended for your Lead logic)
 fastapi-mail==1.4.1
+
+qrcode==7.4.2
+pillow==10.2.0
+aiofiles==23.2.1

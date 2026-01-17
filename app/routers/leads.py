@@ -1,52 +1,55 @@
 import os
-import shutil
 import uuid
+import aiofiles # Optimized for Async file writing
 from typing import Optional
-from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException
+from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
-from .. import models, schemas
+
+# Local imports
+from .. import models, notify
 from ..database import get_db
 
-router = APIRouter(prefix="/api", tags=["Leads"])
+router = APIRouter(prefix="/api", tags=["User Leads"])
 
-# Directory where receipts and CVs will be stored
+# Directory where payment receipts are saved
 UPLOAD_DIR = "static/uploads"
 os.makedirs(UPLOAD_DIR, exist_ok=True)
 
 @router.post("/submit-lead")
 async def handle_lead_submission(
+    background_tasks: BackgroundTasks,
     type: str = Form(...),                  # 'PAID_APPOINTMENT' or 'RECRUITMENT'
     whatsapp: str = Form(...),              # Mandatory
     email: Optional[str] = Form(None),      # Optional
     service: Optional[str] = Form(None),    # 'VISA' or 'JOB'
     country: Optional[str] = Form(None),
-    date: Optional[str] = Form(None),       # From the Calendar
+    date: Optional[str] = Form(None),       # From the Calendar step
     payment_method: Optional[str] = Form(None),
-    candidate_ids: Optional[str] = Form(None), # JSON string for recruitment
-    receipt: Optional[UploadFile] = File(None), # The receipt image
+    candidate_ids: Optional[str] = Form(None), 
+    receipt: Optional[UploadFile] = File(None), 
     db: Session = Depends(get_db)
 ):
-    """
-    Handles the 5-step wizard and Recruitment Cart.
-    Saves data and payment receipt proof.
-    """
+    # 1. Generate Unique Reference Number
+    ref = f"AFRO-{uuid.uuid4().hex[:6].upper()}"
     
-    receipt_path = None
+    receipt_url = None
 
-    # 1. Handle File Upload if it exists (Receipt)
+    # 2. Handle ASYNC File Upload (Non-blocking)
     if receipt:
-        # Create a unique filename to prevent overwriting
         ext = os.path.splitext(receipt.filename)[1]
-        unique_filename = f"receipt_{whatsapp}_{uuid.uuid4().hex}{ext}"
-        save_to = os.path.join(UPLOAD_DIR, unique_filename)
+        filename = f"receipt_{ref}{ext}"
+        save_path = os.path.join(UPLOAD_DIR, filename)
         
-        with open(save_to, "wb") as buffer:
-            shutil.copyfileobj(receipt.file, buffer)
+        # We use aiofiles to write the file without blocking the server
+        async with aiofiles.open(save_path, "wb") as out_file:
+            content = await receipt.read() # Read the file into memory asynchronously
+            await out_file.write(content)  # Write the file asynchronously
         
-        receipt_path = f"/static/uploads/{unique_filename}"
+        receipt_url = f"/static/uploads/{filename}"
 
-    # 2. Create Database Entry
+    # 3. Create Database Entry
     new_lead = models.Lead(
+        ref_number=ref,
         type=type,
         whatsapp=whatsapp,
         email=email,
@@ -54,22 +57,53 @@ async def handle_lead_submission(
         country=country,
         appointment_date=date,
         payment_method=payment_method,
-        receipt_url=receipt_path,
+        receipt_url=receipt_url,
         candidate_ids=candidate_ids,
-        message=f"Request from {whatsapp} for {service} to {country}"
+        status="Pending Verification",
+        message=f"New {type} request for {service} to {country}."
     )
 
     db.add(new_lead)
     db.commit()
     db.refresh(new_lead)
 
-    # 3. NOTIFICATION LOGIC (Placeholder)
-    # This is where you trigger the email/WhatsApp to yourself.
-    # We will build the actual email sender in the next step.
-    print(f"NEW LEAD ALERT: {new_lead.type} from {new_lead.whatsapp}")
+    # 4. Immediate Automated Confirmation (via noreply@afroverseas.com)
+    if email:
+        email_body = f"""
+        <html>
+            <body style="font-family: 'Plus Jakarta Sans', sans-serif; color: #333; line-height: 1.6;">
+                <div style="max-width: 600px; margin: auto; border: 2px solid #0056A4; padding: 30px; border-radius: 25px; background-color: #ffffff;">
+                    <h2 style="color: #0056A4; text-align: center;">RECEIPT LOGGED</h2>
+                    <p>Dear Candidate,</p>
+                    <p>Your payment receipt for <b>Reference: {ref}</b> has been securely uploaded to our system.</p>
+                    
+                    <div style="background-color: #F8F9FB; padding: 20px; border-radius: 15px; margin: 20px 0; border: 1px solid #eee;">
+                        <p style="margin: 5px 0;"><b>Service Type:</b> {service}</p>
+                        <p style="margin: 5px 0;"><b>Destination:</b> {country}</p>
+                        <p style="margin: 5px 0;"><b>Requested Date:</b> {date}</p>
+                        <p style="margin: 5px 0;"><b>Payment:</b> {payment_method}</p>
+                    </div>
+                    
+                    <p style="font-weight: bold;">What happens next?</p>
+                    <p>Our finance team is manually verifying your transaction. If valid, you will receive your <b>Entrance QR Code</b> via email and WhatsApp.</p>
+                    
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+                    <p style="font-size: 11px; color: #999; text-align: center;">
+                        This is an automated system notification from Afroverseas Global Network. Please do not reply directly to this email.
+                    </p>
+                </div>
+            </body>
+        </html>
+        """
+        background_tasks.add_task(
+            notify.send_noreply_email, 
+            email, 
+            f"Afroverseas: Receipt Received [{ref}]", 
+            email_body
+        )
 
     return {
         "status": "success", 
-        "message": "We have received your payment and request.",
+        "reference_number": ref,
         "lead_id": new_lead.id
     }
