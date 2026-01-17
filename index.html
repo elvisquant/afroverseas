@@ -65,22 +65,24 @@
             animation: loading 1.5s infinite;
         }
         @keyframes loading { to { background-position-x: -200%; } }
+
+        /* Calendar Styling */
+        .calendar-day.selected {
+            background-color: var(--afro-blue);
+            color: white;
+            box-shadow: 0 10px 15px -3px rgba(0, 86, 164, 0.3);
+        }
     </style>
 </head>
 <body class="text-gray-900 overflow-hidden select-none">
 
     <!-- SPLASH SCREEN LOADER -->
     <div id="splash-screen">
-        <div class="relative">
-            <!-- Replace with your actual logo path -->
-            <div class="w-32 h-32 rounded-full border-4 border-[#0056A4] flex items-center justify-center bg-white shadow-2xl pulse-logo">
+        <div class="relative text-center">
+            <div class="w-32 h-32 rounded-full border-4 border-[#0056A4] flex items-center justify-center bg-white shadow-2xl pulse-logo mx-auto">
                 <span class="text-2xl font-black text-[#0056A4]">AFRO</span>
             </div>
-            <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 flex gap-1">
-                <div class="w-2 h-2 rounded-full bg-[#0056A4] animate-bounce"></div>
-                <div class="w-2 h-2 rounded-full bg-[#2D9C3C] animate-bounce [animation-delay:-0.3s]"></div>
-                <div class="w-2 h-2 rounded-full bg-[#0056A4] animate-bounce [animation-delay:-0.5s]"></div>
-            </div>
+            <p class="mt-4 font-black text-[#0056A4] tracking-widest text-sm">LOADING EXPERIENCE</p>
         </div>
     </div>
 
@@ -143,9 +145,9 @@
         </a>
     </nav>
 
-    <!-- 5. LEAD DRAWER -->
+    <!-- 5. LEAD DRAWER (MULTI-STEP WIZARD) -->
     <div id="drawer-overlay" class="fixed inset-0 bg-black/70 z-[60] hidden backdrop-blur-md transition-opacity" onclick="closeDrawer()"></div>
-    <div id="lead-drawer" class="fixed bottom-0 left-0 right-0 bg-white z-[70] rounded-t-[3rem] p-8 translate-y-full drawer-transition safe-area-bottom shadow-2xl overflow-hidden">
+    <div id="lead-drawer" class="fixed bottom-0 left-0 right-0 bg-white z-[70] rounded-t-[3rem] p-8 translate-y-full drawer-transition safe-area-bottom shadow-2xl overflow-hidden max-h-[90vh]">
         <div class="w-16 h-1.5 bg-gray-200 rounded-full mx-auto mb-6"></div>
         
         <!-- HEADER WITH PROGRESS -->
@@ -153,6 +155,8 @@
             <h2 id="drawer-title" class="text-2xl font-black text-gray-900 tracking-tight">Expert Advice</h2>
             <div id="step-indicator" class="flex gap-1">
                 <div class="step-dot w-6 h-1.5 rounded-full bg-[#0056A4]"></div>
+                <div class="step-dot w-2 h-1.5 rounded-full bg-gray-100"></div>
+                <div class="step-dot w-2 h-1.5 rounded-full bg-gray-100"></div>
                 <div class="step-dot w-2 h-1.5 rounded-full bg-gray-100"></div>
                 <div class="step-dot w-2 h-1.5 rounded-full bg-gray-100"></div>
             </div>
@@ -166,45 +170,43 @@
                     <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"/></svg>
                     </div>
-                    <span class="text-sm font-black text-[#0056A4]">Visa Assistance</span>
+                    <span class="text-xs font-black text-[#0056A4]">Visa Assistance</span>
                 </button>
                 <button onclick="selectService('JOB')" class="flex flex-col items-center justify-center p-6 rounded-[2rem] border-2 border-gray-50 bg-gray-50 hover:border-[#2D9C3C] hover:bg-green-50 transition-all group">
                     <div class="w-12 h-12 bg-white rounded-2xl flex items-center justify-center mb-3 shadow-sm group-hover:scale-110 transition-transform">
                         <svg class="w-6 h-6 text-[#2D9C3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
                     </div>
-                    <span class="text-sm font-black text-[#2D9C3C]">Job Search</span>
+                    <span class="text-xs font-black text-[#2D9C3C]">Job Search</span>
                 </button>
             </div>
         </div>
 
-        <!-- STEP 2: DETAILS (DYNAMIC) -->
+        <!-- STEP 2: DETAILS -->
         <div id="step-2" class="step-container hidden animate-fade-in">
-            <p id="step-2-subtitle" class="text-gray-500 mb-6 text-sm font-semibold">Tell us your destination preference.</p>
+            <p class="text-gray-500 mb-6 text-sm font-semibold">Tell us your destination preference.</p>
             <div class="space-y-4">
                 <select id="lead-country" class="w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
                     <option value="">Select Destination Country</option>
                     <option value="Saudi Arabia">Saudi Arabia</option>
                     <option value="United Arab Emirates">United Arab Emirates</option>
                     <option value="Qatar">Qatar</option>
-                    <option value="Kuwait">Kuwait</option>
-                    <option value="Oman">Oman</option>
+                    <option value="Canada">Canada</option>
+                    <option value="Europe">Europe</option>
                 </select>
 
-                <!-- Conditional: Visa Type -->
                 <select id="visa-type-container" class="hidden w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
                     <option value="">Select Visa Category</option>
                     <option value="Work Visa">Work Visa</option>
-                    <option value="Visit/Tourist">Visit/Tourist Visa</option>
-                    <option value="Business">Business Visa</option>
+                    <option value="Visit/Tourist">Tourist Visa</option>
+                    <option value="Study">Study Permit</option>
                 </select>
 
-                <!-- Conditional: Work Type -->
                 <select id="work-type-container" class="hidden w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 outline-none text-sm font-bold">
                     <option value="">Select Field of Interest</option>
-                    <option value="Construction">Construction / Engineering</option>
-                    <option value="Catering">Catering / Food Service</option>
+                    <option value="Construction">Construction</option>
+                    <option value="Hospitality">Hospitality</option>
                     <option value="Healthcare">Healthcare</option>
-                    <option value="Logistics">Logistics / Driver</option>
+                    <option value="Tech">IT & Technology</option>
                 </select>
 
                 <button onclick="nextStep(3)" class="w-full bg-[#0056A4] text-white py-5 rounded-[1.5rem] font-black text-sm uppercase tracking-widest flex justify-center items-center gap-2">
@@ -217,172 +219,146 @@
         <div id="step-3" class="step-container hidden animate-fade-in">
             <p class="text-gray-500 mb-6 text-sm font-semibold">How should we reach you?</p>
             <div class="space-y-4">
-                <input type="email" id="lead-email" placeholder="Email Address (Optional)" class="w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#0056A4] outline-none transition-all text-sm font-bold">
-                <div class="relative flex items-center py-2">
-                    <div class="flex-grow border-t border-gray-100"></div>
-                    <span class="flex-shrink mx-4 text-gray-300 text-[10px] font-black uppercase">And / Or</span>
-                    <div class="flex-grow border-t border-gray-100"></div>
-                </div>
-                <input type="tel" id="lead-whatsapp" placeholder="WhatsApp Number (Optional)" class="w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#2D9C3C] outline-none transition-all text-sm font-bold">
+                <input type="email" id="lead-email" placeholder="Email (Optional)" class="w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#0056A4] outline-none transition-all text-sm font-bold">
+                <input type="tel" id="lead-whatsapp" placeholder="WhatsApp (Required)" class="w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#2D9C3C] outline-none transition-all text-sm font-bold">
                 
-                <button id="final-submit" onclick="submitLead()" class="w-full bg-[#2D9C3C] text-white py-5 rounded-[1.5rem] font-black text-lg shadow-2xl shadow-green-100 active:scale-95 transition-all opacity-50 cursor-not-allowed" disabled>
-                    Finalize Request
+                <button id="contact-next" onclick="nextStep(4)" class="w-full bg-[#0056A4] text-white py-5 rounded-[1.5rem] font-black text-sm uppercase tracking-widest opacity-50 cursor-not-allowed" disabled>
+                    Select Appointment Date
                 </button>
                 <button onclick="nextStep(2)" class="w-full text-gray-400 text-[10px] font-black uppercase tracking-widest py-2">Go Back</button>
             </div>
+        </div>
+
+        <!-- STEP 4: CALENDAR SELECTION -->
+        <div id="step-4" class="step-container hidden animate-fade-in">
+            <p class="text-gray-500 mb-4 text-sm font-semibold text-center">Choose an available date for your consultation.</p>
+            <div id="calendar-grid" class="grid grid-cols-4 gap-3 mb-8">
+                <!-- Days generated by JS -->
+            </div>
+            <button id="calendar-next" onclick="nextStep(5)" class="w-full bg-[#0056A4] text-white py-5 rounded-[1.5rem] font-black text-sm uppercase tracking-widest opacity-50 cursor-not-allowed" disabled>
+                Proceed to Payment
+            </button>
+        </div>
+
+        <!-- STEP 5: PAYMENT METHOD -->
+        <div id="step-5" class="step-container hidden animate-fade-in">
+            <p class="text-gray-500 mb-6 text-sm font-semibold text-center uppercase tracking-widest">Select Payment Method</p>
+            <div class="grid grid-cols-2 gap-4 mb-8">
+                <button onclick="selectPayment('VISA')" class="p-6 rounded-[2rem] border-2 border-gray-100 flex flex-col items-center gap-2 hover:border-[#0056A4] active:scale-95 transition-all">
+                    <svg class="w-8 h-8 text-blue-800" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg>
+                    <span class="text-[10px] font-black uppercase">Visa / Card</span>
+                </button>
+                <button onclick="selectPayment('CRYPTO')" class="p-6 rounded-[2rem] border-2 border-gray-100 flex flex-col items-center gap-2 hover:border-orange-400 active:scale-95 transition-all">
+                    <svg class="w-8 h-8 text-orange-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71z"/></svg>
+                    <span class="text-[10px] font-black uppercase">Crypto</span>
+                </button>
+                <button onclick="selectPayment('MOMO')" class="p-6 rounded-[2rem] border-2 border-gray-100 flex flex-col items-center gap-2 hover:border-[#2D9C3C] active:scale-95 transition-all">
+                    <svg class="w-8 h-8 text-yellow-500" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H9V8h2v8zm4 0h-2V8h2v8z"/></svg>
+                    <span class="text-[10px] font-black uppercase">MoMo</span>
+                </button>
+                <button onclick="selectPayment('BANK')" class="p-6 rounded-[2rem] border-2 border-gray-100 flex flex-col items-center gap-2 hover:border-gray-800 active:scale-95 transition-all">
+                    <svg class="w-8 h-8 text-gray-700" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm0 3.45l8.15 14.55H3.85L12 5.45zM11 10v4h2v-4h-2zm0 6v2h2v-2h-2z"/></svg>
+                    <span class="text-[10px] font-black uppercase">Bank</span>
+                </button>
+            </div>
+            <button id="pay-submit" onclick="submitLead()" class="w-full bg-[#2D9C3C] text-white py-6 rounded-[1.5rem] font-black text-lg shadow-2xl shadow-green-100 active:scale-95 transition-all opacity-50" disabled>
+                Finalize & Pay
+            </button>
         </div>
     </div>
 
     <!-- SCRIPTS -->
     <script>
-        const API_URL = "/api"; // Adjusted for production
+        const API_URL = "/api";
         let selectedCandidates = [];
-        let currentLeadType = 'APPOINTMENT';
+        let bookingData = {
+            service: '', country: '', subType: '',
+            email: '', whatsapp: '', date: '', payment: ''
+        };
 
-        // --- SKELETON UI ---
-        function renderSkeleton() {
-            const container = document.getElementById('app-content');
-            container.innerHTML = `
-                <div class="space-y-6">
-                    ${Array(3).fill(`
-                        <div class="bg-white rounded-[2.5rem] p-6 space-y-4">
-                            <div class="h-6 w-3/4 skeleton rounded-lg"></div>
-                            <div class="h-4 w-1/2 skeleton rounded-lg opacity-50"></div>
-                            <div class="flex gap-2">
-                                <div class="h-8 w-20 skeleton rounded-full"></div>
-                                <div class="h-8 w-20 skeleton rounded-full"></div>
-                            </div>
-                            <div class="h-12 w-full skeleton rounded-2xl"></div>
-                        </div>
-                    `).join('')}
-                </div>
-            `;
+        // --- CALENDAR GENERATOR ---
+        function generateCalendar() {
+            const grid = document.getElementById('calendar-grid');
+            grid.innerHTML = '';
+            const today = new Date();
+            
+            for (let i = 1; i <= 12; i++) {
+                const date = new Date(today);
+                date.setDate(today.getDate() + i);
+                
+                // Skip Sundays
+                if(date.getDay() === 0) continue;
+
+                const day = date.getDate();
+                const month = date.toLocaleString('default', { month: 'short' });
+                const weekday = date.toLocaleString('default', { weekday: 'short' });
+
+                const el = document.createElement('div');
+                el.className = 'calendar-day flex flex-col items-center justify-center p-4 rounded-2xl bg-gray-50 border border-gray-100 cursor-pointer transition-all active:scale-90';
+                el.innerHTML = `<span class="text-[9px] uppercase font-bold text-gray-400">${weekday}</span><span class="text-lg font-black">${day}</span><span class="text-[9px] font-bold text-[#0056A4]">${month}</span>`;
+                
+                el.onclick = () => {
+                    document.querySelectorAll('.calendar-day').forEach(d => d.classList.remove('selected'));
+                    el.classList.add('selected');
+                    bookingData.date = `${day} ${month}`;
+                    document.getElementById('calendar-next').disabled = false;
+                    document.getElementById('calendar-next').classList.remove('opacity-50');
+                };
+                grid.appendChild(el);
+            }
         }
 
         // --- SPA ROUTER ---
         async function loadPage(page) {
             const content = document.getElementById('app-content');
             const title = document.getElementById('header-title');
-            
-            // Visual Navigation State
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.querySelector(`[data-page="${page}"]`).classList.add('active');
-            
             content.classList.add('page-fade');
-            renderSkeleton(); // Show loader while fetching
+            renderSkeleton();
 
-            if(page === 'home' || page === 'jobs') {
-                title.innerText = "Active Vacancies";
-                await renderJobs();
-            } else if(page === 'employees') {
-                title.innerText = "Verified Experts";
-                await renderCandidates();
-            } else if(page === 'appointment') {
-                openLeadDrawer('APPOINTMENT');
-            }
-
+            if(page === 'home' || page === 'jobs') { title.innerText = "Active Vacancies"; await renderJobs(); }
+            else if(page === 'employees') { title.innerText = "Verified Experts"; await renderCandidates(); }
+            else if(page === 'appointment') { openLeadDrawer(); }
             setTimeout(() => content.classList.remove('page-fade'), 400);
         }
 
-        // --- RENDER JOBS ---
+        function renderSkeleton() {
+            const container = document.getElementById('app-content');
+            container.innerHTML = `<div class="space-y-6">${Array(3).fill(`<div class="bg-white rounded-[2.5rem] p-6 space-y-4"><div class="h-6 w-3/4 skeleton rounded-lg"></div><div class="h-4 w-1/2 skeleton rounded-lg opacity-50"></div><div class="h-12 w-full skeleton rounded-2xl"></div></div>`).join('')}</div>`;
+        }
+
         async function renderJobs() {
             const container = document.getElementById('app-content');
             try {
                 const res = await fetch(`${API_URL}/jobs`);
                 const jobs = await res.json();
-                
-                let html = `
-                    <div class="mb-8 flex items-center bg-white p-2 rounded-[2rem] shadow-sm border border-gray-100">
-                        <div class="pl-4"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
-                        <input type="text" placeholder="Search Global Vacancies..." class="w-full bg-transparent border-none py-4 px-3 outline-none text-sm font-semibold">
-                    </div>
-                `;
-
-                if(jobs.length === 0) {
-                    html += `<div class="text-center py-20 text-gray-400 font-bold">No active jobs found.</div>`;
-                }
-
+                let html = `<div class="mb-8 flex items-center bg-white p-2 rounded-[2rem] shadow-sm border border-gray-100"><div class="pl-4"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div><input type="text" placeholder="Search Vacancies..." class="w-full bg-transparent border-none py-4 px-3 outline-none text-sm font-semibold"></div>`;
                 jobs.forEach(job => {
-                    html += `
-                        <div class="bg-white rounded-[2.5rem] shadow-sm p-8 mb-6 border border-gray-100 relative overflow-hidden active:scale-[0.98] transition-all">
-                            <div class="flex justify-between items-start mb-6">
-                                <div>
-                                    <h3 class="text-xl font-black text-gray-800 mb-1 leading-tight">${job.title}</h3>
-                                    <p class="text-[#0056A4] text-xs font-black uppercase tracking-widest">${job.company}</p>
-                                </div>
-                                <div class="bg-blue-50 p-3 rounded-2xl">
-                                    <svg class="w-6 h-6 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A10.003 10.003 0 0012 3c1.72 0 3.347.433 4.774 1.2a10 10 0 014.582 9.123c0 .852-.106 1.678-.306 2.47a10.002 10.002 0 01-5.139 7.073l-.052.029a10.218 10.218 0 01-10.647-14.466"/></svg>
-                                </div>
-                            </div>
-                            <div class="flex flex-wrap gap-2 mb-8">
-                                <span class="bg-green-50 text-[#2D9C3C] text-[10px] font-black px-4 py-2 rounded-xl border border-green-100 uppercase tracking-tighter">${job.location}</span>
-                                <span class="bg-blue-50 text-[#0056A4] text-[10px] font-black px-4 py-2 rounded-xl border border-blue-100 uppercase tracking-tighter">Exp: ${job.experience}</span>
-                            </div>
-                            <button onclick="openLeadDrawer('APPOINTMENT')" class="w-full bg-gray-900 text-white py-5 rounded-[1.5rem] font-black text-sm uppercase tracking-widest flex justify-between items-center px-8 shadow-xl shadow-gray-200">
-                                Apply Now
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg>
-                            </button>
-                            <p class="mt-4 text-[9px] text-gray-300 font-bold uppercase text-center tracking-[0.2em]">Code: ${job.job_code}</p>
-                        </div>
-                    `;
+                    html += `<div class="bg-white rounded-[2.5rem] shadow-sm p-8 mb-6 border border-gray-100 relative overflow-hidden active:scale-[0.98] transition-all"><h3 class="text-xl font-black text-gray-800 mb-1 tracking-tight">${job.title}</h3><p class="text-[#0056A4] text-xs font-black uppercase mb-4">${job.company}</p><div class="flex gap-2 mb-6"><span class="bg-blue-50 text-[#0056A4] text-[10px] font-black px-4 py-2 rounded-xl border border-blue-100 uppercase uppercase">${job.location}</span></div><button onclick="openLeadDrawer()" class="w-full bg-gray-900 text-white py-5 rounded-[1.5rem] font-black text-xs uppercase flex justify-between items-center px-8">Book Consultancy<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg></button></div>`;
                 });
                 container.innerHTML = html;
-            } catch (e) { 
-                container.innerHTML = `<div class="py-20 text-center"><p class="text-gray-400 font-bold">Error connecting to server.</p></div>`;
-            }
+            } catch (e) { container.innerHTML = `<div class="text-center py-20 text-gray-400 font-bold">Error loading jobs.</div>`; }
         }
 
-        // --- RENDER CANDIDATES ---
         async function renderCandidates() {
             const container = document.getElementById('app-content');
             try {
                 const res = await fetch(`${API_URL}/candidates`);
                 const candidates = await res.json();
-                
                 let html = `<div class="grid grid-cols-1 gap-8 pt-4">`;
                 candidates.forEach(c => {
                     const isSelected = selectedCandidates.includes(c.id);
-                    html += `
-                        <div class="bg-white rounded-[3rem] overflow-hidden shadow-sm border border-gray-100">
-                            <div class="aspect-[4/5] bg-gray-950 relative">
-                                <video class="w-full h-full object-cover opacity-70" src="${c.video_url}" loop muted playsinline></video>
-                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
-                                <div class="absolute bottom-8 left-8 right-8 text-white">
-                                    <h3 class="text-2xl font-black mb-1">${c.name}</h3>
-                                    <p class="text-green-400 text-xs font-black uppercase tracking-widest mb-4">${c.skills}</p>
-                                    <div class="flex gap-4">
-                                        <button class="w-12 h-12 bg-white/20 backdrop-blur-xl rounded-2xl flex items-center justify-center active:scale-90 transition-transform">
-                                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                        </button>
-                                        <button onclick="toggleCandidate(${c.id})" class="flex-1 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${isSelected ? 'bg-[#2D9C3C] text-white' : 'bg-white text-[#0056A4] shadow-2xl'}">
-                                            ${isSelected ? '✓ In Selection' : '+ Add to Selection'}
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="absolute top-6 right-6">
-                                    <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-white text-[10px] font-black uppercase tracking-widest">Vetted 2024</div>
-                                </div>
-                            </div>
-                        </div>
-                    `;
+                    html += `<div class="bg-white rounded-[3rem] overflow-hidden shadow-sm border border-gray-100"><div class="aspect-[4/5] bg-gray-950 relative"><video class="w-full h-full object-cover opacity-70" src="${c.video_url}" loop muted playsinline></video><div class="absolute bottom-8 left-8 right-8 text-white"><h3 class="text-2xl font-black mb-1">${c.name}</h3><p class="text-green-400 text-xs font-black uppercase mb-4">${c.skills}</p><button onclick="toggleCandidate(${c.id})" class="w-full py-4 rounded-2xl font-black text-xs uppercase transition-all ${isSelected ? 'bg-[#2D9C3C] text-white' : 'bg-white text-[#0056A4] shadow-2xl'}">${isSelected ? '✓ Selected' : '+ Add to Selection'}</button></div></div></div>`;
                 });
-                html += `</div>`;
-                container.innerHTML = html;
-            } catch (e) { container.innerHTML = `<p class="text-center text-gray-400">Loading Team...</p>`; }
+                container.innerHTML = html + `</div>`;
+            } catch (e) { container.innerHTML = `<p class="text-center">Team Loading...</p>`; }
         }
 
-        // --- LEAD LOGIC ---
-         /* --- UPDATED LEAD & DRAWER LOGIC --- */
-        let bookingData = {
-            service: '',
-            country: '',
-            subType: '',
-            email: '',
-            whatsapp: ''
-        };
-
-        function openLeadDrawer(type) {
-            // Reset wizard to Step 1
+        // --- WIZARD LOGIC ---
+        function openLeadDrawer() {
+            bookingData = { service: '', country: '', subType: '', email: '', whatsapp: '', date: '', payment: '' };
+            generateCalendar();
             nextStep(1);
             document.getElementById('drawer-overlay').classList.remove('hidden');
             document.getElementById('lead-drawer').classList.remove('translate-y-full');
@@ -394,118 +370,79 @@
         }
 
         function nextStep(step) {
-            // Hide all steps
             document.querySelectorAll('.step-container').forEach(el => el.classList.add('hidden'));
-            // Update dots
             const dots = document.querySelectorAll('.step-dot');
             dots.forEach((dot, idx) => {
                 dot.className = `step-dot h-1.5 rounded-full transition-all duration-300 ${idx < step ? 'bg-[#0056A4] w-6' : 'bg-gray-100 w-2'}`;
             });
-
-            // Show active step
             document.getElementById(`step-${step}`).classList.remove('hidden');
         }
 
         function selectService(service) {
             bookingData.service = service;
-            
-            // Toggle Visibility of sub-options
-            if(service === 'VISA') {
-                document.getElementById('visa-type-container').classList.remove('hidden');
-                document.getElementById('work-type-container').classList.add('hidden');
-            } else {
-                document.getElementById('work-type-container').classList.remove('hidden');
-                document.getElementById('visa-type-container').classList.add('hidden');
-            }
-            
+            if(service === 'VISA') { document.getElementById('visa-type-container').classList.remove('hidden'); document.getElementById('work-type-container').classList.add('hidden'); }
+            else { document.getElementById('work-type-container').classList.remove('hidden'); document.getElementById('visa-type-container').classList.add('hidden'); }
             nextStep(2);
         }
 
-        // Logic to validate contact info on every keystroke
-        const checkValidation = () => {
-            const email = document.getElementById('lead-email').value;
-            const whatsapp = document.getElementById('lead-whatsapp').value;
-            const submitBtn = document.getElementById('final-submit');
-
-            if(email.trim() !== '' || whatsapp.trim() !== '') {
-                submitBtn.classList.remove('opacity-50', 'cursor-not-allowed');
-                submitBtn.classList.add('shadow-green-200');
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.classList.add('opacity-50', 'cursor-not-allowed');
-                submitBtn.disabled = true;
-            }
-        };
+        function selectPayment(method) {
+            bookingData.payment = method;
+            document.getElementById('pay-submit').disabled = false;
+            document.getElementById('pay-submit').classList.remove('opacity-50');
+        }
 
         document.addEventListener('input', (e) => {
-            if(e.target.id === 'lead-email' || e.target.id === 'lead-whatsapp') checkValidation();
+            if(e.target.id === 'lead-whatsapp') {
+                const btn = document.getElementById('contact-next');
+                if(e.target.value.trim().length > 7) { btn.disabled = false; btn.classList.remove('opacity-50'); }
+                else { btn.disabled = true; btn.classList.add('opacity-50'); }
+            }
         });
 
         async function submitLead() {
-            // Capture remaining data
             bookingData.country = document.getElementById('lead-country').value;
-            bookingData.subType = bookingData.service === 'VISA' 
-                ? document.getElementById('visa-type-container').value 
-                : document.getElementById('work-type-container').value;
+            bookingData.subType = bookingData.service === 'VISA' ? document.getElementById('visa-type-container').value : document.getElementById('work-type-container').value;
             bookingData.email = document.getElementById('lead-email').value;
             bookingData.whatsapp = document.getElementById('lead-whatsapp').value;
 
-            if(!bookingData.country || !bookingData.subType) {
-                return alert("Please select your country and category preference.");
-            }
-
-            const btn = document.getElementById('final-submit');
-            btn.innerHTML = `<span class="animate-pulse">Connecting...</span>`;
+            const btn = document.getElementById('pay-submit');
+            btn.innerHTML = `Processing Payment...`;
             
-            // Prepare payload for FastAPI
             const payload = {
-                type: 'CONSULTANCY_REQUEST',
-                message: `Request for ${bookingData.service} to ${bookingData.country} (${bookingData.subType})`,
+                type: 'PAID_APPOINTMENT',
+                message: `Confirmed Appointment on ${bookingData.date}. Service: ${bookingData.service} (${bookingData.subType}) to ${bookingData.country}. Method: ${bookingData.payment}`,
                 email: bookingData.email,
                 whatsapp: bookingData.whatsapp
             };
 
-            const res = await fetch(`/api/submit-lead`, {
+            const res = await fetch(`${API_URL}/submit-lead`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(payload)
             });
 
-            if(res.ok) {
-                closeDrawer();
-                showSuccess();
-            }
-        
+            if(res.ok) { closeDrawer(); showSuccess(); }
         }
 
         function showSuccess() {
             const content = document.getElementById('app-content');
+            const myNumber = "25700000000"; // REPLACE WITH YOUR NUMBER
+            const msg = encodeURIComponent(`Hi Afroverseas, I have confirmed and paid for my appointment on ${bookingData.date}.`);
+            
             content.innerHTML = `
                 <div class="flex flex-col items-center justify-center min-h-[75vh] text-center px-10 animate-fade-in">
                     <div class="w-28 h-28 bg-green-50 rounded-[3rem] flex items-center justify-center mb-10 shadow-2xl shadow-green-100 animate-bounce">
                         <svg class="w-14 h-14 text-[#2D9C3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
                     </div>
-                    <h1 class="text-3xl font-black mb-4 tracking-tight text-[#0056A4]">Successfully Logged</h1>
-                    <p class="text-gray-400 mb-12 text-sm leading-relaxed font-semibold">Our consultancy team has been notified. We prioritize your move.</p>
-                    <a href="https://wa.me/YOUR_WHATSAPP_NUMBER" class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2rem] font-black text-lg shadow-2xl shadow-green-200 flex items-center justify-center gap-3 active:scale-95 transition-transform">
-                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
-                        Instant Consultation
+                    <h1 class="text-3xl font-black mb-4 tracking-tight text-[#0056A4]">Appointment Booked</h1>
+                    <p class="text-gray-400 mb-12 text-sm leading-relaxed font-semibold">Confirmed for <b>${bookingData.date}</b>. A receipt has been sent to your WhatsApp.</p>
+                    <a href="https://wa.me/${myNumber}?text=${msg}" target="_blank" class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2rem] font-black text-lg shadow-2xl shadow-green-200 flex items-center justify-center gap-3 active:scale-95 transition-transform">
+                        Confirm on WhatsApp
                     </a>
-                </div>
-            `;
+                </div>`;
         }
 
-        // --- SPLASH INITIALIZATION ---
-        window.onload = async () => {
-            // Give splash screen a second to look professional
-            setTimeout(async () => {
-                await loadPage('home');
-                document.getElementById('splash-screen').style.opacity = '0';
-                setTimeout(() => {
-                    document.getElementById('splash-screen').style.display = 'none';
-                }, 500);
-            }, 1500);
-        };
+        window.onload = () => { setTimeout(async () => { await loadPage('home'); document.getElementById('splash-screen').style.opacity = '0'; setTimeout(() => { document.getElementById('splash-screen').style.display = 'none'; }, 500); }, 1500); };
     </script>
 </body>
 </html>
