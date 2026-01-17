@@ -468,15 +468,138 @@
             container.innerHTML = `<div class="space-y-6">${Array(3).fill(`<div class="bg-white rounded-[2.5rem] p-8 space-y-4"><div class="h-6 skeleton rounded-lg"></div><div class="h-4 skeleton rounded-lg opacity-40"></div><div class="h-14 w-full skeleton rounded-[1.5rem]"></div></div>`).join('')}</div>`;
         }
 
+       // --- RENDER JOBS LIST ---
         async function renderJobs() {
             const container = document.getElementById('app-content');
             try {
                 const res = await fetch(`${API_URL}/jobs`);
                 const jobs = await res.json();
-                let html = `<div class="mb-10 p-2 bg-white rounded-[2rem] shadow-sm flex items-center border border-gray-50"><div class="pl-4 text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div><input type="text" placeholder="Global Vacancies..." class="w-full bg-transparent border-none py-4 px-3 outline-none text-xs font-bold"></div>`;
-                jobs.forEach(job => { html += `<div class="bg-white rounded-[3rem] shadow-sm p-10 mb-8 border border-gray-50 active:scale-95 transition-all"><h3 class="text-xl font-black text-gray-800 mb-1 leading-tight tracking-tight">${job.title}</h3><p class="text-[#0056A4] text-[10px] font-black uppercase mb-8 tracking-[0.2em]">${job.company}</p><div class="flex gap-2 mb-8"><span class="bg-green-50 text-[#2D9C3C] text-[9px] font-black px-4 py-2 rounded-xl border border-green-100 uppercase">${job.location}</span><span class="bg-blue-50 text-[#0056A4] text-[9px] font-black px-4 py-2 rounded-xl border border-blue-100 uppercase">Exp: ${job.experience}</span></div><button onclick="openLeadDrawer()" class="w-full bg-gray-900 text-white py-6 rounded-[2rem] font-black text-xs uppercase tracking-widest flex justify-between items-center px-10 shadow-xl shadow-gray-200">Consult Expert<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg></button></div>`; });
+                
+                let html = `
+                    <!-- SEARCH & FILTERS -->
+                    <div class="mb-6 flex items-center bg-white p-2 rounded-[2rem] shadow-sm border border-gray-100">
+                        <div class="pl-4 text-gray-300"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+                        <input type="text" placeholder="Search 'Welder Jobs'..." class="w-full bg-transparent border-none py-4 px-3 outline-none text-xs font-bold">
+                    </div>
+
+                    <div class="flex gap-3 overflow-x-auto hide-scrollbar mb-8">
+                        <button class="bg-[#0056A4] text-white px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-blue-100">Active Jobs</button>
+                        <button class="bg-white text-gray-400 border border-gray-100 px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest">Today's Jobs</button>
+                        <button class="bg-white text-gray-400 border border-gray-100 px-6 py-2.5 rounded-full text-[10px] font-black uppercase tracking-widest">Hot Jobs</button>
+                    </div>
+                `;
+
+                jobs.forEach(job => {
+                    html += `
+                        <div class="bg-white rounded-[2.5rem] shadow-sm mb-6 border border-gray-100 overflow-hidden active:scale-[0.97] transition-all" onclick="showJobDetails(${JSON.stringify(job).replace(/"/g, '&quot;')})">
+                            <div class="p-8">
+                                <div class="flex justify-between items-start mb-6">
+                                    <div>
+                                        <h3 class="text-xl font-black text-gray-800 leading-tight">${job.title}</h3>
+                                        <p class="text-gray-400 text-[10px] font-black uppercase tracking-widest mt-1">${job.company}</p>
+                                    </div>
+                                    <div class="bg-blue-50 p-3 rounded-2xl">
+                                        <svg class="w-6 h-6 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"/></svg>
+                                    </div>
+                                </div>
+                                
+                                <div class="flex items-center gap-2 mb-6 text-[#2D9C3C]">
+                                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg>
+                                    <span class="text-xs font-bold">${job.location}</span>
+                                </div>
+
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="bg-gray-50 text-gray-500 text-[9px] font-black px-4 py-2 rounded-xl border border-gray-100 uppercase">Exp: ${job.experience}</span>
+                                    <span class="bg-gray-50 text-gray-500 text-[9px] font-black px-4 py-2 rounded-xl border border-gray-100 uppercase">${job.qualification}</span>
+                                </div>
+                            </div>
+                            
+                            <!-- SCREENSHOT STYLE FOOTER -->
+                            <div class="bg-[#0056A4] px-8 py-4 flex justify-between items-center text-white">
+                                <span class="text-[9px] font-bold opacity-70 tracking-widest uppercase">Job Code: ${job.job_code}</span>
+                                <span class="text-xs font-black flex items-center gap-2">
+                                    Apply Now
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+                                </span>
+                            </div>
+                        </div>
+                    `;
+                });
                 container.innerHTML = html;
-            } catch (e) { container.innerHTML = `<p class="text-center py-20 text-gray-300 font-bold tracking-widest uppercase">Connectivity Lost...</p>`; }
+            } catch (e) { console.error(e); }
+        }
+
+        // --- SHOW JOB DETAILS (FULL SCREEN MODAL) ---
+        function showJobDetails(job) {
+            const container = document.getElementById('app-content');
+            // Store current scroll to return later
+            const currentHTML = container.innerHTML;
+            
+            container.innerHTML = `
+                <div class="animate-fade-in pb-20">
+                    <button onclick="renderJobs()" class="flex items-center gap-2 text-[#0056A4] font-black text-xs uppercase tracking-widest mb-8 active:scale-90 transition-transform">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M15 19l-7-7 7-7"/></svg> Back to Listings
+                    </button>
+
+                    <div class="bg-white rounded-[3rem] shadow-xl border border-gray-100 overflow-hidden">
+                        <div class="p-10 text-center border-b border-gray-50">
+                            <h2 class="text-3xl font-black text-gray-800 tracking-tight mb-2">${job.title}</h2>
+                            <p class="text-[#2D9C3C] font-black uppercase tracking-[0.3em] text-xs">${job.company}</p>
+                        </div>
+
+                        <div class="p-10 space-y-10">
+                            <!-- CORE REQUIREMENTS -->
+                            <div class="grid grid-cols-2 gap-6">
+                                <div class="bg-gray-50 p-6 rounded-[2rem] text-center">
+                                    <p class="text-[8px] font-black uppercase text-gray-400 mb-2">Duration</p>
+                                    <p class="text-xs font-black text-gray-700">${job.project_duration || '3 Months'}</p>
+                                </div>
+                                <div class="bg-gray-50 p-6 rounded-[2rem] text-center">
+                                    <p class="text-[8px] font-black uppercase text-gray-400 mb-2">Passport</p>
+                                    <p class="text-xs font-black text-gray-700">${job.passport_req || 'ECNR'}</p>
+                                </div>
+                            </div>
+
+                            <!-- DESCRIPTION -->
+                            <div>
+                                <h4 class="text-[10px] font-black uppercase text-gray-300 tracking-[0.2em] mb-4">Job Description</h4>
+                                <p class="text-sm text-gray-600 leading-relaxed font-medium">${job.description}</p>
+                            </div>
+
+                            <!-- BENEFITS (From Screenshot) -->
+                            <div class="bg-blue-50/50 p-8 rounded-[2.5rem] border border-blue-100">
+                                <h4 class="text-[10px] font-black uppercase text-[#0056A4] tracking-[0.2em] mb-4">Company Provision</h4>
+                                <ul class="space-y-3">
+                                    <li class="flex items-center gap-3 text-xs font-bold text-blue-900">
+                                        <svg class="w-4 h-4 text-[#2D9C3C]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293l-4.243 4.243a1 1 0 01-1.414 0l-2.121-2.121a1 1 0 011.414-1.414l1.414 1.414 3.536-3.536a1 1 0 011.414 1.414z"/></svg>
+                                        Free Food & Accommodation
+                                    </li>
+                                    <li class="flex items-center gap-3 text-xs font-bold text-blue-900">
+                                        <svg class="w-4 h-4 text-[#2D9C3C]" fill="currentColor" viewBox="0 0 20 20"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293l-4.243 4.243a1 1 0 01-1.414 0l-2.121-2.121a1 1 0 011.414-1.414l1.414 1.414 3.536-3.536a1 1 0 011.414 1.414z"/></svg>
+                                        Transportation + Overtime
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- INTERVIEW INFO -->
+                            <div class="text-center py-4">
+                                <p class="text-[10px] font-black uppercase text-gray-400 mb-2">Interview Method</p>
+                                <p class="text-sm font-black text-[#0056A4]">${job.interview_info}</p>
+                            </div>
+
+                            <button onclick="openLeadDrawer('JOB')" class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2rem] font-black text-sm uppercase tracking-widest shadow-2xl shadow-green-100 active:scale-95 transition-all">
+                                Express Interest Now
+                            </button>
+                        </div>
+                        
+                        <div class="bg-gray-900 p-6 text-center">
+                            <p class="text-[9px] font-bold text-gray-500 uppercase tracking-[0.4em]">Post Reference: ${job.job_code}</p>
+                        </div>
+                    </div>
+                </div>
+            `;
+            // Smoothly scroll to top of details
+            container.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         async function renderCandidates() {

@@ -11,7 +11,15 @@ class Job(Base):
     location = Column(String)
     experience = Column(String)
     qualification = Column(String)
-    description = Column(Text)
+    
+    # Detailed requirements from screenshot
+    description = Column(Text) # Main text
+    project_duration = Column(String, default="Minimum 03 Months")
+    passport_req = Column(String, default="ECNR Required")
+    benefits = Column(String, default="Free Food, Accommodation, Transport + OT")
+    interview_info = Column(String, default="Online / Virtual Interview Shortly")
+    walkin_dates = Column(String, nullable=True) # e.g., "16th Jan to 20th Jan"
+    
     posted_on = Column(DateTime, default=datetime.datetime.utcnow)
     is_active = Column(Boolean, default=True)
 

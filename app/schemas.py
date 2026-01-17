@@ -16,10 +16,19 @@ class JobBase(BaseModel):
     experience: str
     qualification: str
     description: str
+    project_duration: Optional[str] = "Minimum 03 Months"
+    passport_req: Optional[str] = "ECNR Passport Required"
+    benefits: Optional[str] = "Free Food, Accommodation, Transportation + OT"
+    interview_info: Optional[str] = "Online / Virtual Interview Shortly"
+    walkin_dates: Optional[str] = None
+
+class JobCreate(JobBase):
+    pass
 
 class JobResponse(JobBase):
     id: int
     posted_on: datetime
+    is_active: bool
     class Config:
         from_attributes = True
 
@@ -29,6 +38,7 @@ class CandidateBase(BaseModel):
     skills: str
     experience_years: int
     whatsapp: str
+
 
 class CandidateResponse(CandidateBase):
     id: int
@@ -47,3 +57,10 @@ class LeadResponse(BaseModel):
     created_at: datetime
     class Config:
         from_attributes = True
+
+
+
+
+
+
+
