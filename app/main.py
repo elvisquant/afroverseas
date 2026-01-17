@@ -4,9 +4,12 @@ from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .routers import public, admin, leads # Refactored imports
 
+
+
+# This command uses Base to create the tables in Postgres
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI()
+app = FastAPI(title="Afroverseas API")
 
 app.add_middleware(
     CORSMiddleware,
