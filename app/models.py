@@ -2,7 +2,6 @@ from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
 from .database import Base
 import datetime
 
-
 class Job(Base):
     __tablename__ = "jobs"
     id = Column(Integer, primary_key=True, index=True)
@@ -10,7 +9,7 @@ class Job(Base):
     company = Column(String)
     location = Column(String)
     country = Column(String) 
-    job_type = Column(String) 
+    job_type = Column(String) # Contract, Full-time
     salary_range = Column(String)
     experience = Column(String)
     qualification = Column(String)
@@ -21,6 +20,7 @@ class Job(Base):
     interview_info = Column(String, default="Online / Virtual Interview Shortly")
     posted_on = Column(DateTime, default=datetime.datetime.utcnow)
     is_active = Column(Boolean, default=True)
+    is_trending = Column(Boolean, default=False) # For the "Trending" section
 
 class Candidate(Base):
     __tablename__ = "candidates"
@@ -31,6 +31,7 @@ class Candidate(Base):
     video_url = Column(String)
     cv_url = Column(String)
     whatsapp = Column(String)
+    booking_count = Column(Integer, default=0) # SOCIAL PROOF: Mark experts as "Hot"
     is_featured = Column(Boolean, default=False)
 
 
