@@ -1,17 +1,15 @@
-from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey, Boolean
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
+from .database import Base
 import datetime
-
-Base = declarative_base()
 
 class Job(Base):
     __tablename__ = "jobs"
     id = Column(Integer, primary_key=True, index=True)
-    job_code = Column(String, unique=True) # e.g., JB00108415
+    job_code = Column(String, unique=True)
     title = Column(String)
     company = Column(String)
-    location = Column(String) # Saudi Arabia, etc.
-    experience = Column(String) # 5-8 Years
+    location = Column(String)
+    experience = Column(String)
     qualification = Column(String)
     description = Column(Text)
     posted_on = Column(DateTime, default=datetime.datetime.utcnow)
@@ -23,18 +21,31 @@ class Candidate(Base):
     name = Column(String)
     skills = Column(String)
     experience_years = Column(Integer)
-    video_url = Column(String) # Link to GCP Storage video
-    cv_url = Column(String)
+    video_url = Column(String) # Relative path to static/uploads/
+    cv_url = Column(String)    # Relative path to static/uploads/
     whatsapp = Column(String)
     is_featured = Column(Boolean, default=False)
 
 class Lead(Base):
-    """Captures both Appointments and Recruitment orders"""
+    """Unified Lead table for Consultations and Recruitment"""
     __tablename__ = "leads"
     id = Column(Integer, primary_key=True, index=True)
-    type = Column(String) # 'APPOINTMENT' or 'RECRUITMENT'
-    email = Column(String)
+    type = Column(String)           # 'PAID_APPOINTMENT' or 'RECRUITMENT'
+    email = Column(String, nullable=True)
     whatsapp = Column(String)
-    message = Column(Text)
-    candidate_ids = Column(String) # JSON list of IDs they selected
+    
+    # Consultancy Specific Fields
+    service_type = Column(String, nullable=True)     # 'VISA' or 'JOB'
+    country = Column(String, nullable=True)
+    sub_type = Column(String, nullable=True)         # e.g., 'Work Visa' or 'Construction'
+    appointment_date = Column(String, nullable=True) 
+    
+    # Payment Fields
+    payment_method = Column(String, nullable=True)   # 'VISA', 'CRYPTO', 'MOMO', 'BANK'
+    receipt_url = Column(String, nullable=True)      # Path to the payment proof image
+    
+    # Recruitment Specific Fields
+    candidate_ids = Column(String, nullable=True)    # JSON string list of selected IDs
+    
+    message = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)
