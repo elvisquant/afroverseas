@@ -30,7 +30,6 @@
             padding-bottom: env(safe-area-inset-bottom);
         }
 
-        /* High-End Native Animations */
         .page-fade {
             animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -38,7 +37,7 @@
         @keyframes fadeIn {
             from {
                 opacity: 0;
-                transform: translateY(12px);
+                transform: translateY(10px);
             }
 
             to {
@@ -48,7 +47,7 @@
         }
 
         .drawer-transition {
-            transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1);
+            transition: transform 0.6s cubic-bezier(0.32, 0.72, 0, 1);
         }
 
         #splash-screen {
@@ -105,8 +104,8 @@
         .calendar-day.selected {
             background-color: var(--afro-blue) !important;
             color: white !important;
-            box-shadow: 0 12px 24px -6px rgba(0, 86, 164, 0.4);
-            transform: translateY(-4px) scale(1.05);
+            box-shadow: 0 10px 20px -5px rgba(0, 86, 164, 0.4);
+            transform: translateY(-3px) scale(1.05);
         }
 
         .payment-card.active {
@@ -116,11 +115,9 @@
         }
 
         .visa-ui-card {
-            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
-            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            background: linear-gradient(135deg, #111827 0%, #374151 100%);
         }
 
-        /* Custom Checkbox boxes */
         .afro-checkbox {
             width: 22px;
             height: 22px;
@@ -160,7 +157,7 @@
             </div>
             <div class="mt-8 space-y-2">
                 <h2 class="font-black text-xl tracking-tighter text-[#0056A4]">AFROVERSEAS</h2>
-                <p class="font-bold text-[9px] text-[#2D9C3C] tracking-[0.5em] uppercase">Premium Career Move</p>
+                <p class="font-bold text-[9px] text-[#2D9C3C] tracking-[0.5em] uppercase">Premium Career Path</p>
             </div>
         </div>
     </div>
@@ -175,20 +172,18 @@
             </div>
             <div class="leading-none">
                 <h1 id="header-title" class="text-lg font-black tracking-tight text-[#0056A4]">Explore</h1>
-                <p id="header-subtitle"
-                    class="text-[9px] font-bold text-[#2D9C3C] uppercase tracking-widest leading-none mt-1">Global
-                    Gateway</p>
+                <p id="header-subtitle" class="text-[9px] font-bold text-[#2D9C3C] uppercase tracking-widest mt-1">
+                    Bujumbura HQ</p>
             </div>
         </div>
         <button
             class="w-10 h-10 bg-gray-50 rounded-2xl flex items-center justify-center active:scale-90 transition-transform">
-            <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-width="2.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
             </svg>
         </button>
     </header>
 
-    <!-- 2. CONTENT -->
     <main id="app-content" class="absolute inset-0 top-20 bottom-24 overflow-y-auto hide-scrollbar px-5 pt-6 pb-32">
     </main>
 
@@ -204,8 +199,7 @@
                         d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6">
                     </path>
                 </svg></div>
-            <span
-                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Explore</span>
+            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase">Home</span>
         </a>
         <a href="javascript:void(0)" onclick="loadPage('jobs')"
             class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="jobs">
@@ -216,8 +210,7 @@
                         d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
                     </path>
                 </svg></div>
-            <span
-                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Jobs</span>
+            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase">Jobs</span>
         </a>
         <a href="javascript:void(0)" onclick="loadPage('employees')"
             class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="employees">
@@ -229,7 +222,7 @@
                     </path>
                 </svg></div>
             <span
-                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Team</span>
+                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Experts</span>
         </a>
         <a href="javascript:void(0)" onclick="loadPage('appointment')"
             class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="appointment">
@@ -240,43 +233,42 @@
                         d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
                     </path>
                 </svg></div>
-            <span
-                class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Book</span>
+            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase">Book</span>
         </a>
     </nav>
 
-    <!-- FLOATING CART -->
+    <!-- FLOATING RECRUIT CART -->
     <div id="cart-float" class="hidden fixed bottom-28 left-1/2 -translate-x-1/2 z-[55]">
         <button onclick="openLeadDrawer('RECRUITMENT')"
             class="bg-[#0056A4] text-white px-8 py-5 rounded-[2rem] shadow-2xl flex items-center gap-4 active:scale-95 border-2 border-white animate-bounce">
             <span id="cart-count"
-                class="bg-[#2D9C3C] text-white text-[11px] font-black w-7 h-7 flex items-center justify-center rounded-full shadow-inner border border-white/40">0</span>
-            <span class="font-black text-xs uppercase tracking-widest">Recruit Selected</span>
+                class="bg-[#2D9C3C] text-white text-[11px] font-black w-7 h-7 flex items-center justify-center rounded-full shadow-inner">0</span>
+            <span class="font-black text-xs uppercase tracking-widest leading-none">Recruit Selection</span>
         </button>
     </div>
 
     <!-- FILTER OVERLAY DRAWER -->
-    <div id="filter-overlay" class="fixed inset-0 bg-black/75 z-[80] hidden backdrop-blur-md" onclick="toggleFilters()">
-    </div>
+    <div id="filter-overlay" class="fixed inset-0 bg-black/70 z-[80] hidden backdrop-blur-md transition-opacity"
+        onclick="toggleFilters()"></div>
     <div id="filter-drawer"
-        class="fixed bottom-0 left-0 right-0 bg-white z-[90] rounded-t-[4rem] p-10 translate-y-full drawer-transition safe-area-bottom shadow-2xl overflow-y-auto max-h-[85vh] hide-scrollbar text-center">
+        class="fixed bottom-0 left-0 right-0 bg-white z-[90] rounded-t-[3.5rem] p-10 translate-y-full drawer-transition safe-area-bottom shadow-2xl overflow-y-auto max-h-[85vh] hide-scrollbar text-center">
         <div class="w-16 h-1.5 bg-gray-200 rounded-full mx-auto mb-10"></div>
-        <h3 id="filter-title" class="text-2xl font-black text-[#0056A4] mb-10 tracking-tight uppercase leading-none">
-            Advanced Filters</h3>
+        <h3 id="filter-title" class="text-2xl font-black text-[#0056A4] mb-8 tracking-tight uppercase leading-none">
+            Filters</h3>
         <div id="filter-body" class="space-y-10 text-left"></div>
         <button onclick="applyFilters()"
             class="w-full mt-12 bg-[#0056A4] text-white py-6 rounded-[2.5rem] font-black text-xs uppercase tracking-[0.3em] shadow-2xl shadow-blue-100">Apply
             Filters</button>
     </div>
 
-    <!-- APPOINTMENT WIZARD DRAWER (COMPACT DESIGN) -->
+    <!-- APPOINTMENT WIZARD (SCROLLABLE & FIXED) -->
     <div id="drawer-overlay" class="fixed inset-0 bg-black/70 z-[60] hidden backdrop-blur-md" onclick="closeDrawer()">
     </div>
     <div id="lead-drawer"
-        class="fixed bottom-0 left-0 right-0 bg-white z-[70] rounded-t-[3.5rem] p-8 translate-y-full drawer-transition safe-area-bottom shadow-2xl overflow-hidden max-h-[90vh] text-center">
+        class="fixed bottom-0 left-0 right-0 bg-white z-[70] rounded-t-[3.5rem] p-8 translate-y-full drawer-transition safe-area-bottom shadow-2xl overflow-y-auto max-h-[95vh] hide-scrollbar text-center">
         <div class="w-16 h-1.5 bg-gray-200 rounded-full mx-auto mb-6"></div>
         <div class="flex justify-between items-center mb-8 px-2">
-            <h2 id="drawer-title" class="text-2xl font-black text-[#0056A4]">Consultancy</h2>
+            <h2 id="drawer-title" class="text-2xl font-black text-[#0056A4] tracking-tight">Expert Advice</h2>
             <div id="step-indicator" class="flex gap-1.5">
                 <div class="step-dot w-6 h-1.5 rounded-full bg-[#0056A4]"></div>
                 <div class="step-dot w-2 h-1.5 rounded-full bg-gray-100"></div>
@@ -287,7 +279,7 @@
         </div>
 
         <div id="step-1" class="step-container animate-fade-in">
-            <p class="text-gray-400 mb-8 text-sm font-semibold italic">Choose your requirement:</p>
+            <p class="text-gray-400 mb-8 text-sm font-semibold italic">Choose requirement:</p>
             <div class="grid grid-cols-2 gap-4"><button onclick="selectService('VISA')"
                     class="flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 border-gray-50 bg-gray-50 hover:border-[#0056A4] transition-all"><span
                         class="text-[10px] font-black uppercase text-[#0056A4]">Visa Support</span></button><button
@@ -295,13 +287,13 @@
                     class="flex flex-col items-center justify-center p-8 rounded-[2.5rem] border-2 border-gray-50 bg-gray-50 hover:border-[#2D9C3C] transition-all"><span
                         class="text-[10px] font-black uppercase text-[#2D9C3C]">Job Search</span></button></div>
         </div>
-        <div id="step-2" class="step-container hidden animate-fade-in">
-            <p class="text-gray-400 mb-6 text-sm font-semibold italic text-center leading-none">Destination Details</p>
+        <div id="step-2" class="step-container hidden animate-fade-in leading-none">
+            <p class="text-gray-400 mb-6 text-sm font-semibold italic leading-none">Destination Details</p>
             <div class="space-y-4"><select id="lead-country"
-                    class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none">
+                    class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none focus:ring-2 focus:ring-[#0056A4] transition-all">
                     <option value="">Select Country</option>
                     <option value="Saudi Arabia">Saudi Arabia</option>
-                    <option value="UAE">Dubai (UAE)</option>
+                    <option value="UAE">United Arab Emirates</option>
                     <option value="Qatar">Qatar</option>
                 </select><select id="visa-type-container"
                     class="hidden w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none">
@@ -312,32 +304,32 @@
                     <option value="Construction">Engineering</option>
                     <option value="Hospitality">Catering</option>
                 </select><button onclick="nextStep(3)"
-                    class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase shadow-xl">Continue
+                    class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase shadow-xl active:scale-95">Continue
                     →</button></div>
         </div>
         <div id="step-3" class="step-container hidden animate-fade-in">
-            <p class="text-gray-400 mb-6 text-sm font-semibold italic">Verification Contact</p>
-            <div class="space-y-4"><input type="tel" id="lead-whatsapp" placeholder="WhatsApp (257...)"
+            <p class="text-gray-400 mb-6 text-sm font-semibold italic">Identity Verification</p>
+            <div class="space-y-4"><input type="tel" id="lead-whatsapp" placeholder="WhatsApp Number"
                     oninput="checkContactValidation()"
                     class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none focus:ring-2 focus:ring-[#2D9C3C]"><input
                     type="email" id="lead-email" placeholder="Email (Optional)"
                     class="w-full p-6 bg-gray-50 rounded-[2rem] border-none ring-1 ring-gray-100 text-sm font-bold outline-none"><button
                     id="contact-next" onclick="nextStep(4)"
                     class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase opacity-50 shadow-xl"
-                    disabled>Set Appointment Date →</button></div>
+                    disabled>Select Date →</button></div>
         </div>
         <div id="step-4" class="step-container hidden animate-fade-in">
-            <p class="text-gray-400 mb-6 text-sm font-semibold text-center italic leading-none text-[#0056A4]">Choose
-                your slot:</p>
+            <p class="text-gray-400 mb-6 text-sm font-semibold text-center italic text-[#0056A4] leading-none">Pick your
+                slot:</p>
             <div id="calendar-grid" class="grid grid-cols-4 gap-3 mb-8"></div><button id="calendar-next"
                 onclick="nextStep(5)"
                 class="w-full bg-[#0056A4] text-white py-6 rounded-[2rem] font-black text-xs uppercase opacity-50 shadow-xl"
-                disabled>Review & Pay →</button>
+                disabled>Confirm & Pay →</button>
         </div>
-        <div id="step-5" class="step-container hidden animate-fade-in pb-10">
+        <div id="step-5" class="step-container hidden animate-fade-in pb-10 overflow-y-visible">
             <div
-                class="bg-gradient-to-br from-[#0056A4] to-blue-800 p-8 rounded-[2.5rem] mb-8 text-center text-white relative shadow-2xl overflow-hidden leading-none">
-                <span class="text-[9px] font-black uppercase tracking-widest opacity-60">Consultation Fee</span>
+                class="bg-gradient-to-br from-[#0056A4] to-blue-800 p-8 rounded-[2.5rem] mb-8 text-center text-white shadow-2xl relative overflow-hidden">
+                <span class="text-[10px] font-black uppercase tracking-widest opacity-60">Consultation Fee</span>
                 <h3 class="text-4xl font-black mt-2 leading-none">$50.00</h3>
             </div>
             <div class="grid grid-cols-4 gap-3 mb-8">
@@ -367,23 +359,26 @@
                     </svg></button>
             </div>
             <div id="payment-details-view"
-                class="bg-gray-50 rounded-[2.5rem] p-10 mb-8 border border-gray-100 min-h-[200px] flex items-center justify-center text-center italic text-xs font-bold text-gray-400 shadow-inner">
+                class="bg-gray-50 rounded-[2.5rem] p-10 mb-8 border border-gray-100 min-h-[220px] flex items-center justify-center text-center italic text-xs font-bold text-gray-400 transition-all shadow-inner">
                 Choose gateway above</div>
             <div class="mb-10">
+                <label class="block text-[10px] font-black uppercase text-gray-400 mb-4 px-2 tracking-widest">Confirm
+                    with Receipt</label>
                 <div
-                    class="relative w-full h-24 border-2 border-dashed border-green-200 rounded-[2.5rem] bg-green-50/50 flex flex-col items-center justify-center overflow-hidden">
+                    class="relative w-full h-24 border-2 border-dashed border-green-200 rounded-[2rem] bg-green-50/50 flex flex-col items-center justify-center transition-all overflow-hidden shadow-sm active:scale-95">
                     <input type="file" id="payment-receipt" accept="image/*"
                         class="absolute inset-0 opacity-0 cursor-pointer z-10" onchange="checkPaymentValidation()">
-                    <div id="upload-placeholder"
-                        class="text-[#2D9C3C] font-black text-xs flex flex-col items-center gap-2"><svg class="w-6 h-6"
-                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-width="3" d="M12 4v16m8-8H4" />
-                        </svg>Attach Screenshot</div>
+                    <div id="upload-placeholder" class="text-[#2D9C3C] font-black text-xs flex items-center gap-3">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md"><svg
+                                class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-width="3" d="M12 4v16m8-8H4" />
+                            </svg></div>Attach Screenshot
+                    </div>
                 </div>
             </div>
             <button id="final-pay-submit" onclick="submitLeadWithFile()"
-                class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2.5rem] font-black text-sm uppercase shadow-2xl opacity-50 cursor-not-allowed"
-                disabled>Finalize & Secure Slot</button>
+                class="w-full bg-[#2D9C3C] text-white py-7 rounded-[2.5rem] font-black text-sm uppercase shadow-2xl opacity-50 cursor-not-allowed transition-all"
+                disabled>Finalize & Book</button>
         </div>
     </div>
 
@@ -398,29 +393,16 @@
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             const activeNav = document.querySelector(`[data-page="${page}"]`); if (activeNav) activeNav.classList.add('active');
             content.classList.add('page-fade'); renderSkeleton();
-            if (page === 'home') { title.innerText = "Afroverseas"; sub.innerText = "Explore Global Success"; await renderHome(); }
-            else if (page === 'jobs') { title.innerText = "Opportunities"; sub.innerText = "Premium Careers Pool"; await renderJobs(); }
-            else if (page === 'employees') { title.innerText = "Verified Pro Pool"; sub.innerText = "Recruit Verified Global Talent"; await renderCandidates(); }
+            if (page === 'home') { title.innerText = "Afroverseas"; sub.innerText = "Premium Experience"; await renderHome(); }
+            else if (page === 'jobs') { title.innerText = "Vacancies"; sub.innerText = "Career Hunter"; await renderJobs(); }
+            else if (page === 'employees') { title.innerText = "Team"; sub.innerText = "Global Talent Pool"; await renderCandidates(); }
             else if (page === 'appointment') { openLeadDrawer(); }
-            setTimeout(() => content.classList.remove('page-fade'), 500);
+            setTimeout(() => content.classList.remove('page-fade'), 400);
         }
 
-        // --- DASHBOARD ---
         async function renderHome() {
             const container = document.getElementById('app-content');
-            container.innerHTML = `
-                <div class="space-y-12 animate-fade-in">
-                    <div class="bg-white rounded-[4rem] p-12 shadow-sm border border-gray-100 relative overflow-hidden">
-                        <h2 class="text-3xl font-black text-[#0056A4] tracking-tighter leading-[1.1] mb-6 relative leading-none">Your Professional <br><span class="text-[#2D9C3C]">Global Move.</span></h2>
-                        <p class="text-gray-400 text-sm font-semibold italic mb-12 relative italic leading-relaxed">Premium overseas careers and end-to-end consulting at your fingertips.</p>
-                        <div class="flex gap-4">
-                            <button onclick="loadPage('jobs')" class="flex-1 bg-[#0056A4] text-white py-5 rounded-[1.8rem] font-black text-[10px] uppercase tracking-widest shadow-2xl active:scale-95 transition-all">Search Jobs</button>
-                            <button onclick="loadPage('appointment')" class="flex-1 bg-[#2D9C3C] text-white py-5 rounded-[1.8rem] font-black text-[10px] uppercase tracking-widest shadow-2xl active:scale-95 transition-all">Book Advice</button>
-                        </div>
-                    </div>
-                    <div><div class="flex items-center gap-3 mb-8 px-4"><span class="text-2xl">🔥</span><h3 class="text-[11px] font-black uppercase text-gray-400 tracking-[0.4em]">Trending High-Pay Roles</h3></div><div id="home-trending" class="space-y-8"></div></div>
-                    <div><div class="flex items-center gap-3 mb-8 px-4"><span class="text-2xl">✨</span><h3 class="text-[11px] font-black uppercase text-gray-400 tracking-[0.4em]">Newest Premium Openings</h3></div><div id="home-recent" class="space-y-8 pb-16"></div></div>
-                </div>`;
+            container.innerHTML = `<div class="space-y-12 animate-fade-in"><div class="bg-white rounded-[4rem] p-12 shadow-sm border border-gray-100 relative overflow-hidden"><h2 class="text-3xl font-black text-[#0056A4] tracking-tighter leading-tight mb-4 leading-none tracking-tight">Bridge to Global <br><span class="text-[#2D9C3C]">Success.</span></h2><p class="text-gray-400 text-sm font-semibold italic mb-10 leading-relaxed italic">End-to-end consulting at your fingertips.</p><div class="flex gap-4"><button onclick="loadPage('jobs')" class="flex-1 bg-[#0056A4] text-white py-4 rounded-2xl font-black text-[10px] uppercase active:scale-95 transition-all shadow-xl shadow-blue-100">Find Jobs</button><button onclick="loadPage('appointment')" class="flex-1 bg-[#2D9C3C] text-white py-4 rounded-2xl font-black text-[10px] uppercase active:scale-95 transition-all shadow-xl shadow-green-100">Book Advice</button></div></div><div><div class="flex items-center gap-3 mb-8 px-4 leading-none"><span class="text-2xl leading-none">🔥</span><h3 class="text-[11px] font-black uppercase text-gray-400 tracking-[0.4em] leading-none uppercase">Trending Positions</h3></div><div id="home-trending" class="space-y-6"></div></div><div><div class="flex items-center gap-3 mb-8 px-4 leading-none"><span class="text-2xl leading-none">✨</span><h3 class="text-[11px] font-black uppercase text-gray-400 tracking-[0.4em] leading-none uppercase">Newest Vacancies</h3></div><div id="home-recent" class="space-y-6 pb-16"></div></div></div>`;
             await populateHomeLists();
         }
 
@@ -428,18 +410,17 @@
             try {
                 const res = await fetch(`${API_URL}/jobs`); allJobs = await res.json();
                 const containerRecent = document.getElementById('home-recent'); const containerTrending = document.getElementById('home-trending');
-                if (allJobs.length === 0) { containerRecent.innerHTML = containerTrending.innerHTML = `<p class="text-center text-xs text-gray-300 font-bold uppercase py-10 tracking-[0.3em]">Syncing Pool...</p>`; return; }
-                allJobs.slice(0, 4).forEach(job => { containerRecent.innerHTML += `<div class="bg-white rounded-[2.5rem] p-10 shadow-sm border border-gray-50 flex justify-between items-center active:scale-95 transition-all" onclick="showJobDetails(${JSON.stringify(job).replace(/"/g, '&quot;')})"><div><h4 class="font-black text-gray-900 text-base leading-none mb-2 tracking-tight">${job.title}</h4><p class="text-[9px] font-bold text-[#0056A4] uppercase tracking-widest leading-none">${job.company}</p></div><div class="w-12 h-12 bg-gray-50 rounded-[1.2rem] flex items-center justify-center text-[#2D9C3C] shadow-sm"><svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg></div></div>`; });
-                allJobs.slice().reverse().slice(0, 3).forEach(job => { containerTrending.innerHTML += `<div class="bg-white rounded-[2.5rem] p-10 shadow-sm border-2 border-orange-50 flex justify-between items-center active:scale-95 transition-all" onclick="showJobDetails(${JSON.stringify(job).replace(/"/g, '&quot;')})"><div><h4 class="font-black text-gray-800 text-base mb-2 tracking-tight">${job.title}</h4><p class="text-[9px] font-bold text-[#FF5722] uppercase tracking-widest leading-none italic uppercase leading-none">Global High-Priority Position</p></div><div class="w-12 h-12 bg-orange-50 rounded-[1.2rem] flex items-center justify-center text-[#FF5722] shadow-sm animate-pulse"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div></div>`; });
+                if (allJobs.length === 0) { containerRecent.innerHTML = containerTrending.innerHTML = `<p class="text-center text-xs text-gray-300 font-bold uppercase py-10 tracking-[0.3em]">Syncing...</p>`; return; }
+                allJobs.slice(0, 4).forEach(job => { containerRecent.innerHTML += `<div class="bg-white rounded-[2.5rem] p-10 shadow-sm border border-gray-50 flex justify-between items-center active:scale-95 transition-all" onclick="showJobDetails(${JSON.stringify(job).replace(/"/g, '&quot;')})"><div><h4 class="font-black text-gray-900 text-base leading-none mb-2 tracking-tight">${job.title}</h4><p class="text-[9px] font-bold text-[#0056A4] uppercase tracking-widest leading-none">${job.company}</p></div><div class="w-10 h-10 bg-gray-50 rounded-xl flex items-center justify-center text-[#2D9C3C] shadow-sm"><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg></div></div>`; });
+                allJobs.slice().reverse().slice(0, 3).forEach(job => { containerTrending.innerHTML += `<div class="bg-white rounded-[2.5rem] p-10 shadow-sm border-2 border-orange-50 flex justify-between items-center active:scale-95 transition-all" onclick="showJobDetails(${JSON.stringify(job).replace(/"/g, '&quot;')})"><div><h4 class="font-black text-gray-800 text-base mb-2 tracking-tight">${job.title}</h4><p class="text-[9px] font-bold text-[#FF5722] uppercase tracking-widest leading-none italic uppercase leading-none">Global High-Priority</p></div><div class="w-10 h-10 bg-orange-50 rounded-xl flex items-center justify-center text-[#FF5722] shadow-sm animate-pulse"><svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/></svg></div></div>`; });
             } catch (e) { }
         }
 
-        // --- JOBS & FILTERING ---
         async function renderJobs() {
             const container = document.getElementById('app-content');
             try {
                 const res = await fetch(`${API_URL}/jobs`); allJobs = await res.json();
-                container.innerHTML = `<div class="mb-12 flex gap-4"><div class="flex-1 flex items-center bg-white p-3 rounded-[2.5rem] border border-gray-100 shadow-sm"><div class="pl-5 text-gray-300"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-width="3"/></svg></div><input type="text" id="job-search" oninput="handleSearch('jobs')" placeholder="Search premium roles..." class="w-full bg-transparent border-none py-4 px-4 text-sm font-bold outline-none"></div><button onclick="toggleFilters('jobs')" class="w-16 h-16 bg-white border border-gray-100 rounded-[2rem] flex items-center justify-center shadow-sm active:scale-90 transition-transform"><svg class="w-7 h-7 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg></button></div><div id="jobs-list" class="space-y-12"></div>`;
+                container.innerHTML = `<div class="mb-10 flex gap-4 animate-fade-in"><div class="flex-1 flex items-center bg-white p-3 rounded-[2.5rem] border border-gray-100 shadow-sm"><div class="pl-4 text-gray-300"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-width="3"/></svg></div><input type="text" id="job-search" oninput="handleSearch('jobs')" placeholder="Search verified roles..." class="w-full bg-transparent border-none py-4 px-4 text-sm font-bold outline-none"></div><button onclick="toggleFilters('jobs')" class="w-16 h-16 bg-white border border-gray-100 rounded-[1.8rem] flex items-center justify-center shadow-sm active:scale-90 transition-transform"><svg class="w-7 h-7 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"/></svg></button></div><div id="jobs-list" class="space-y-6"></div>`;
                 displayJobs(allJobs);
             } catch (e) { }
         }
@@ -447,43 +428,41 @@
         function displayJobs(data) {
             const list = document.getElementById('jobs-list');
             if (data.length === 0) { list.innerHTML = `<div class="py-32 text-center text-gray-300 font-black uppercase text-[11px] tracking-[0.4em]">Zero Matching Vacancies</div>`; return; }
-            list.innerHTML = data.map(job => `<div class="bg-white rounded-[4rem] shadow-sm border border-gray-50 overflow-hidden active:scale-95 transition-all" onclick="showJobDetails(${JSON.stringify(job).replace(/"/g, '&quot;')})"><div class="p-12 text-center"><h3 class="text-3xl font-black mb-1 leading-tight tracking-tighter">${job.title}</h3><p class="text-[#0056A4] text-[10px] font-black uppercase mb-10 tracking-[0.4em] italic leading-none">${job.company}</p><div class="flex justify-center gap-3"><span class="bg-green-50 text-[#2D9C3C] text-[10px] font-black px-7 py-3 rounded-2xl border border-green-100 uppercase tracking-tighter">${job.location}</span><span class="bg-blue-50 text-[#0056A4] text-[10px] font-black px-7 py-3 rounded-2xl border border-blue-100 uppercase tracking-tighter">${job.job_type || 'Full-time'}</span></div></div><div class="bg-gray-950 text-white py-7 px-12 flex justify-between items-center font-black text-xs uppercase tracking-widest shadow-2xl"><span>Profile Submission</span><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="4" d="M9 5l7 7-7 7"/></svg></div></div>`).join('');
+            list.innerHTML = data.map(job => `<div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-50 overflow-hidden active:scale-[0.98] transition-all" onclick="showJobDetails(${JSON.stringify(job).replace(/"/g, '&quot;')})"><div class="p-8"><h3 class="text-lg font-black mb-1 leading-tight tracking-tight">${job.title}</h3><p class="text-[#0056A4] text-[9px] font-black uppercase tracking-[0.2em] mb-6 leading-none italic uppercase leading-none opacity-50">${job.company}</p><div class="flex justify-start gap-2"><span class="bg-green-50 text-[#2D9C3C] text-[8px] font-black px-4 py-2 rounded-xl border border-green-100 uppercase tracking-tighter leading-none">${job.location}</span><span class="bg-blue-50 text-[#0056A4] text-[8px] font-black px-4 py-2 rounded-xl border border-blue-100 uppercase tracking-tighter leading-none">${job.job_type || 'Full-time'}</span></div></div><div class="bg-gray-950 text-white py-5 px-8 flex justify-between items-center font-black text-[10px] uppercase tracking-widest shadow-xl"><span>Application View</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="4" d="M9 5l7 7-7 7"/></svg></div></div>`).join('');
         }
 
         function showJobDetails(job) {
             const container = document.getElementById('app-content');
-            container.innerHTML = `<div class="animate-fade-in pb-32"><button onclick="renderJobs()" class="flex items-center gap-5 text-[#0056A4] font-black text-xs uppercase tracking-widest mb-12 active:scale-90 transition-transform"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="5"/></svg> Return to Pool</button><div class="bg-white rounded-[4.5rem] shadow-2xl border border-gray-100 overflow-hidden text-center relative"><div class="p-12 border-b border-gray-50"><h2 class="text-4xl font-black text-gray-900 tracking-tighter leading-tight mb-4 tracking-tighter leading-none">${job.title}</h2><p class="text-[#2D9C3C] font-black uppercase tracking-[0.6em] text-[11px] leading-none mt-2 leading-none uppercase">${job.company}</p></div><div class="p-12 space-y-14"><div class="grid grid-cols-2 gap-8"><div class="bg-gray-50 p-12 rounded-[3.5rem] border border-gray-100 text-center shadow-inner leading-none"><p class="text-[10px] font-black text-gray-300 uppercase mb-3 tracking-widest leading-none">Passport</p><p class="text-sm font-black uppercase text-gray-700 leading-none">${job.passport_req}</p></div><div class="bg-gray-50 p-12 rounded-[3.5rem] border border-gray-100 text-center shadow-inner leading-none"><p class="text-[10px] font-black text-gray-300 uppercase mb-3 tracking-widest leading-none">Project Term</p><p class="text-sm font-black uppercase text-gray-700 leading-none">${job.project_duration}</p></div></div><div class="text-left space-y-6 px-4"><h4 class="text-xs font-black uppercase text-[#0056A4] tracking-[0.5em] opacity-40">Job Summary</h4><p class="text-base text-gray-500 leading-relaxed font-semibold italic">"${job.description}"</p></div><div class="bg-blue-50/60 p-12 rounded-[4rem] border border-blue-100 text-left space-y-7 shadow-sm leading-none"><h4 class="text-xs font-black uppercase text-[#0056A4] tracking-[0.5em] mb-4">Official Provisions</h4><ul class="text-[13px] font-black text-[#0056A4] space-y-6"><li>✓ Verified Luxury Accommodation</li><li>✓ Flight Ticket & Medical Guard</li><li>✓ Transportation + Full Overtime</li></ul></div><button onclick="openLeadDrawer('JOB')" class="w-full bg-[#0056A4] text-white py-8 rounded-[2.5rem] font-black text-xs uppercase tracking-[0.5em] shadow-2xl shadow-blue-100 active:scale-95 transition-all">Engage Professional Entry</button></div><div class="bg-gray-950 p-12 text-center leading-none"><p class="text-[10px] font-black text-gray-500 uppercase tracking-[0.6em] opacity-40 leading-none">Afroverseas Strategic Asset</p></div></div></div>`;
+            container.innerHTML = `<div class="animate-fade-in pb-32"><button onclick="renderJobs()" class="flex items-center gap-5 text-[#0056A4] font-black text-xs uppercase tracking-widest mb-10"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M15 19l-7-7 7-7" stroke-width="5"/></svg> Back to Pool</button><div class="bg-white rounded-[4rem] shadow-2xl border border-gray-50 overflow-hidden text-center relative"><div class="p-12 border-b border-gray-50"><h2 class="text-3xl font-black text-gray-900 tracking-tighter leading-tight leading-none">${job.title}</h2><p class="text-[#2D9C3C] font-black uppercase tracking-[0.6em] text-[11px] leading-none mt-4 leading-none uppercase tracking-tight opacity-50">${job.company}</p></div><div class="p-12 space-y-12"><div class="grid grid-cols-2 gap-6"><div class="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 text-center shadow-inner leading-none"><p class="text-[9px] font-black text-gray-300 uppercase mb-2 tracking-widest leading-none">Passport</p><p class="text-xs font-black uppercase text-gray-700 leading-none">${job.passport_req}</p></div><div class="bg-gray-50 p-10 rounded-[2.5rem] border border-gray-100 text-center shadow-inner leading-none"><p class="text-[9px] font-black text-gray-300 uppercase mb-2 tracking-widest leading-none">Term</p><p class="text-xs font-black uppercase text-gray-700 leading-none">${job.project_duration}</p></div></div><div class="text-left space-y-5 px-4 leading-none"><h4 class="text-xs font-black uppercase text-[#0056A4] tracking-[0.5em] opacity-40 leading-none">Position Scope</h4><p class="text-sm text-gray-500 leading-relaxed font-semibold italic">"${job.description}"</p></div><button onclick="openLeadDrawer('JOB')" class="w-full bg-[#0056A4] text-white py-7 rounded-[2.2rem] font-black text-xs uppercase tracking-[0.5em] shadow-2xl shadow-blue-100 active:scale-95 transition-all">Submit Professional Profile</button></div></div></div>`;
             container.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
-        // --- TEAM/EXPERTS ---
         async function renderCandidates() {
             const container = document.getElementById('app-content');
             try {
                 const res = await fetch(`${API_URL}/candidates`); allCandidates = await res.json();
-                container.innerHTML = `<div class="mb-12 flex gap-4"><div class="flex-1 flex items-center bg-white p-3 rounded-[2.5rem] border border-gray-100 shadow-sm"><div class="pl-4 text-gray-300"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-width="3"/></svg></div><input type="text" id="candidate-search" oninput="handleSearch('candidates')" placeholder="Search premium verified skills..." class="w-full bg-transparent border-none py-4 px-4 text-sm font-bold outline-none"></div><button onclick="toggleFilters('candidates')" class="w-16 h-16 bg-white border border-gray-100 rounded-[1.8rem] flex items-center justify-center shadow-sm active:scale-90 transition-transform"><svg class="w-7 h-7 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg></button></div><div id="candidate-list" class="space-y-20 animate-fade-in pb-12"></div>`;
+                container.innerHTML = `<div class="mb-12 flex gap-4 animate-fade-in"><div class="flex-1 flex items-center bg-white p-3 rounded-[2.5rem] border border-gray-100 shadow-sm"><div class="pl-4 text-gray-300"><svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" stroke-width="3"/></svg></div><input type="text" id="candidate-search" oninput="handleSearch('candidates')" placeholder="Search skillsets..." class="w-full bg-transparent border-none py-4 px-4 text-sm font-bold outline-none"></div><button onclick="toggleFilters('candidates')" class="w-16 h-16 bg-white border border-gray-100 rounded-[1.8rem] flex items-center justify-center shadow-sm active:scale-90 transition-transform"><svg class="w-7 h-7 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"/></svg></button></div><div id="candidate-list" class="grid grid-cols-2 gap-4 animate-fade-in pb-12"></div>`;
                 displayCandidates(allCandidates);
             } catch (e) { }
         }
 
         function displayCandidates(data) {
             const list = document.getElementById('candidate-list');
-            if (data.length === 0) { list.innerHTML = `<p class="py-32 text-center text-gray-300 font-black uppercase text-[11px] tracking-widest">No matching expert pool found</p>`; return; }
+            if (data.length === 0) { list.innerHTML = `<p class="col-span-2 py-32 text-center text-gray-300 font-black uppercase text-[11px] tracking-widest">No matching experts</p>`; return; }
             list.innerHTML = data.map(c => {
                 const isSelected = selectedCandidates.includes(c.id);
                 const isTrending = c.booking_count > 15;
-                return `<div class="bg-white rounded-[4rem] overflow-hidden shadow-2xl border border-gray-50 relative group transition-all duration-1000 active:scale-95"><div class="aspect-[3/4] bg-black"><video class="w-full h-full object-cover opacity-70 transition-all duration-700 group-hover:opacity-100" src="${c.video_url}" loop muted playsinline onclick="this.paused ? this.play() : this.pause()"></video><div class="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent pointer-events-none"></div><div class="absolute bottom-12 left-10 right-10 text-white"><h3 class="text-4xl font-black mb-1 leading-none tracking-tighter leading-tight leading-none">${c.name}</h3><p class="text-[#2D9C3C] text-[11px] font-black uppercase tracking-[0.5em] mb-12 italic leading-none opacity-80 leading-none uppercase">Verified Expert • ${c.skills}</p><div class="flex gap-4"><button class="w-16 h-16 bg-white/20 backdrop-blur-3xl rounded-[1.5rem] flex items-center justify-center active:scale-90 transition-transform"><svg class="w-7 h-7 fill-current text-white" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><button onclick="toggleCandidate(${c.id})" class="flex-1 py-6 rounded-[2.2rem] font-black text-[11px] uppercase tracking-widest transition-all ${isSelected ? 'bg-[#2D9C3C] text-white border-white' : 'bg-white text-[#0056A4] shadow-2xl shadow-blue-200'}">${isSelected ? '✓ Profile Selected' : 'Recruit Individual'}</button></div></div><div class="absolute top-10 right-10 flex flex-col items-end gap-3"><div class="bg-[#0056A4] px-7 py-3 rounded-full border border-white/20 text-white text-[10px] font-black uppercase tracking-widest leading-none shadow-lg leading-none uppercase">Global Vetted Pro</div><div class="bg-[#2D9C3C] px-5 py-3 rounded-2xl text-white text-[10px] font-black uppercase tracking-[0.3em] shadow-2xl flex items-center gap-2 leading-none border border-white/20 leading-none">⭐ Chosen ${c.booking_count || 12} Times</div>${isTrending ? `<div class="bg-red-500 text-white px-5 py-2.5 rounded-full text-[9px] font-black uppercase animate-pulse shadow-2xl leading-none leading-none">Hot Talent Rank</div>` : ''}</div></div></div>`;
+                return `<div class="bg-white rounded-[2.5rem] overflow-hidden shadow-xl border border-gray-100 relative group active:scale-95 transition-all"><div class="aspect-[4/5] bg-black relative"><video class="w-full h-full object-cover opacity-60" src="${c.video_url}" loop muted playsinline onclick="this.paused ? this.play() : this.pause()"></video><div class="absolute inset-0 bg-gradient-to-t from-black/95 via-transparent to-transparent pointer-events-none"></div><div class="absolute bottom-6 left-6 right-6 text-white"><h3 class="text-base font-black leading-tight tracking-tight mb-1 leading-none uppercase">${c.name}</h3><p class="text-[#2D9C3C] text-[8px] font-black uppercase tracking-[0.3em] mb-4 italic leading-none opacity-80">${c.skills}</p><button onclick="toggleCandidate(${c.id})" class="w-full py-4 rounded-[1.5rem] font-black text-[9px] uppercase transition-all ${isSelected ? 'bg-[#2D9C3C] text-white' : 'bg-white text-[#0056A4] shadow-lg shadow-blue-200/50'}">${isSelected ? '✓ Ready' : 'Recruit'}</button></div><div class="absolute top-4 right-4 flex flex-col items-end gap-1.5 leading-none"><div class="bg-[#2D9C3C] px-3 py-2 rounded-xl text-white text-[7px] font-black uppercase tracking-[0.2em] shadow-lg border border-white/20">⭐ ${c.booking_count || 12} Hits</div>${isTrending ? `<div class="bg-red-500 text-white px-3 py-1.5 rounded-full text-[6px] font-black uppercase animate-pulse shadow-lg">Rank: High</div>` : ''}</div></div></div>`;
             }).join('');
         }
 
-        // --- FILTERS LOGIC ---
         function toggleFilters(type) {
             const drawer = document.getElementById('filter-drawer'); const overlay = document.getElementById('filter-overlay'); const body = document.getElementById('filter-body');
             if (drawer.classList.contains('translate-y-full')) {
                 if (type === 'jobs') {
-                    body.innerHTML = `<div class="space-y-12"><div><p class="text-[11px] font-black uppercase text-gray-300 tracking-[0.5em] mb-8 italic leading-none">Job Classification</p><div class="flex items-center gap-6 mb-6"><input type="checkbox" class="afro-checkbox" id="f-ct-1"><label for="f-ct-1" class="text-base font-black tracking-tight leading-none text-gray-800">Indefinite (Full-Time)</label></div><div class="flex items-center gap-6"><input type="checkbox" class="afro-checkbox" id="f-ct-2"><label for="f-ct-2" class="text-base font-black tracking-tight text-gray-400 leading-none">Project-Based (Contract)</label></div></div><div><p class="text-[11px] font-black uppercase text-gray-300 tracking-[0.5em] mb-8 italic leading-none">Mode of Presence</p><div class="grid grid-cols-2 gap-6"><div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100 flex items-center justify-center gap-4"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-widest">Global On-Site</span></div><div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100 flex items-center justify-center gap-4"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-widest">Remote Node</span></div></div></div><div><p class="text-[11px] font-black uppercase text-gray-300 tracking-[0.5em] mb-10 italic text-center leading-none">Minimum Salary ($ Benchmark)</p><div class="flex justify-between text-sm font-black text-[#0056A4] mb-4 tracking-tighter"><span>$1,000 / m</span><span>$10,000+ / m</span></div><input type="range" class="w-full accent-[#0056A4] h-3 bg-gray-100 rounded-full"></div></div>`;
+                    body.innerHTML = `<div class="space-y-12"><div><p class="text-[11px] font-black uppercase text-gray-300 tracking-[0.5em] mb-8 italic leading-none uppercase">Type of Employment</p><div class="flex items-center gap-6 mb-6"><input type="checkbox" class="afro-checkbox" id="f-ct-1"><label for="f-ct-1" class="text-base font-black tracking-tight leading-none text-gray-800">Indefinite (Full-Time)</label></div><div class="flex items-center gap-6"><input type="checkbox" class="afro-checkbox" id="f-ct-2"><label for="f-ct-2" class="text-base font-black tracking-tight text-gray-400 leading-none">Project-Based (Contract)</label></div></div><div><p class="text-[11px] font-black uppercase text-gray-300 tracking-[0.5em] mb-8 italic leading-none uppercase uppercase">Mode of Work</p><div class="grid grid-cols-2 gap-6"><div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100 flex items-center justify-center gap-4"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-widest">On-Site</span></div><div class="bg-gray-50 p-10 rounded-[3rem] border border-gray-100 flex items-center justify-center gap-4"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-widest">Remote</span></div></div></div></div>`;
                 } else {
-                    body.innerHTML = `<div class="space-y-10"><div><p class="text-[11px] font-black uppercase text-gray-300 tracking-[0.5em] mb-10 italic text-center leading-none">Verified Niche Filters</p><div class="grid grid-cols-2 gap-6"><div class="flex items-center gap-4 bg-gray-50 p-7 rounded-[2rem] border border-gray-100 shadow-sm leading-none"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-tighter">Engineering</span></div><div class="flex items-center gap-4 bg-gray-50 p-7 rounded-[2rem] border border-gray-100 shadow-sm leading-none"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-tighter">Catering</span></div><div class="flex items-center gap-4 bg-gray-50 p-7 rounded-[2rem] border border-gray-100 shadow-sm leading-none"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-tighter">Logistics</span></div><div class="flex items-center gap-4 bg-gray-50 p-7 rounded-[2rem] border border-gray-100 shadow-sm leading-none"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-tighter">Nursing</span></div></div></div></div>`;
+                    body.innerHTML = `<div class="space-y-10"><div><p class="text-[11px] font-black uppercase text-gray-300 tracking-[0.5em] mb-8 italic text-center uppercase leading-none">Verified Industry Filter</p><div class="grid grid-cols-2 gap-6"><div class="flex items-center gap-4 bg-gray-50 p-8 rounded-[2rem] border border-gray-100 shadow-sm leading-none"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-tighter">Engineering</span></div><div class="flex items-center gap-4 bg-gray-50 p-8 rounded-[2rem] border border-gray-100 shadow-sm leading-none"><input type="checkbox" class="afro-checkbox"><span class="text-[11px] font-black uppercase tracking-tighter">Catering</span></div></div></div></div>`;
                 }
                 overlay.classList.remove('hidden'); drawer.classList.remove('translate-y-full');
             } else { overlay.classList.add('hidden'); drawer.classList.add('translate-y-full'); }
@@ -497,36 +476,36 @@
 
         function applyFilters() { toggleFilters(); }
 
-        // --- PRESERVED LOGIC CORE ---
+        // --- APPOINTMENT CORE ---
         function toggleCandidate(id) { const idx = selectedCandidates.indexOf(id); if (idx > -1) selectedCandidates.splice(idx, 1); else { selectedCandidates.push(id); window.navigator.vibrate(30); } updateCartUI(); renderCandidates(); }
         function updateCartUI() { const cart = document.getElementById('cart-float'); const count = document.getElementById('cart-count'); count.innerText = selectedCandidates.length; selectedCandidates.length > 0 ? cart.classList.remove('hidden') : cart.classList.add('hidden'); }
-        function openLeadDrawer(type = 'CONSULTANCY') { bookingData = { service: '', country: '', subType: '', email: '', whatsapp: '', date: '', method: '' }; generateCalendar(); nextStep(1); document.getElementById('drawer-title').innerText = type === 'RECRUITMENT' ? "Talent Committal" : "Expert Advice"; document.getElementById('drawer-overlay').classList.remove('hidden'); document.getElementById('lead-drawer').classList.remove('translate-y-full'); }
+        function openLeadDrawer(type = 'CONSULTANCY') { bookingData = { service: '', country: '', subType: '', email: '', whatsapp: '', date: '', method: '' }; generateCalendar(); nextStep(1); document.getElementById('drawer-title').innerText = type === 'RECRUITMENT' ? "Talent Committal" : "Verified Expert Advice"; document.getElementById('drawer-overlay').classList.remove('hidden'); document.getElementById('lead-drawer').classList.remove('translate-y-full'); }
         function closeDrawer() { document.getElementById('drawer-overlay').classList.add('hidden'); document.getElementById('lead-drawer').classList.add('translate-y-full'); }
         function nextStep(step) { document.querySelectorAll('.step-container').forEach(el => el.classList.add('hidden')); const dots = document.querySelectorAll('.step-dot'); dots.forEach((dot, idx) => dot.className = `step-dot h-2 rounded-full transition-all duration-500 ${idx < step ? 'bg-[#0056A4] w-12' : 'bg-gray-100 w-2'}`); document.getElementById(`step-${step}`).classList.remove('hidden'); }
         function selectService(service) { bookingData.service = service; nextStep(2); if (service === 'VISA') { document.getElementById('visa-type-container').classList.remove('hidden'); document.getElementById('work-type-container').classList.add('hidden'); } else { document.getElementById('work-type-container').classList.remove('hidden'); document.getElementById('visa-type-container').classList.add('hidden'); } }
-        function generateCalendar() { const grid = document.getElementById('calendar-grid'); grid.innerHTML = ''; for (let i = 1; i <= 12; i++) { const date = new Date(); date.setDate(date.getDate() + i); if (date.getDay() === 0) continue; const d = date.getDate(), m = date.toLocaleString('default', { month: 'short' }), w = date.toLocaleString('default', { weekday: 'short' }); const el = document.createElement('div'); el.className = 'calendar-day flex flex-col items-center justify-center p-6 rounded-[2.2rem] bg-gray-50 border border-gray-100 cursor-pointer active:scale-90 transition-all'; el.innerHTML = `<span class="text-[9px] uppercase font-black text-gray-300 mb-1 leading-none">${w}</span><span class="text-2xl font-black mb-1 leading-none">${d}</span><span class="text-[10px] font-black text-[#0056A4] uppercase tracking-widest leading-none">${m}</span>`; el.onclick = () => { document.querySelectorAll('.calendar-day').forEach(item => item.classList.remove('selected')); el.classList.add('selected'); bookingData.date = `${d} ${m}`; document.getElementById('calendar-next').disabled = false; document.getElementById('calendar-next').classList.remove('opacity-50'); window.navigator.vibrate(20); }; grid.appendChild(el); } }
+        function generateCalendar() { const grid = document.getElementById('calendar-grid'); grid.innerHTML = ''; for (let i = 1; i <= 12; i++) { const date = new Date(); date.setDate(date.getDate() + i); if (date.getDay() === 0) continue; const d = date.getDate(), m = date.toLocaleString('default', { month: 'short' }), w = date.toLocaleString('default', { weekday: 'short' }); const el = document.createElement('div'); el.className = 'calendar-day flex flex-col items-center justify-center p-6 rounded-[2rem] bg-gray-50 border border-gray-100 cursor-pointer active:scale-90 transition-all'; el.innerHTML = `<span class="text-[9px] uppercase font-black text-gray-300 leading-none mb-1">${w}</span><span class="text-2xl font-black mb-1 leading-none">${d}</span><span class="text-[10px] font-black text-[#0056A4] uppercase tracking-widest leading-none">${m}</span>`; el.onclick = () => { document.querySelectorAll('.calendar-day').forEach(item => item.classList.remove('selected')); el.classList.add('selected'); bookingData.date = `${d} ${m}`; document.getElementById('calendar-next').disabled = false; document.getElementById('calendar-next').classList.remove('opacity-50'); window.navigator.vibrate(20); }; grid.appendChild(el); } }
         function checkContactValidation() { const btn = document.getElementById('contact-next'); if (document.getElementById('lead-whatsapp').value.trim().length > 7) { btn.disabled = false; btn.classList.remove('opacity-50'); } else { btn.disabled = true; btn.classList.add('opacity-50'); } }
 
         function showPaymentUI(method) {
             bookingData.method = method; document.querySelectorAll('.payment-card').forEach(c => c.classList.remove('active', 'border-[#0056A4]')); event.currentTarget.classList.add('active', 'border-[#0056A4]'); const view = document.getElementById('payment-details-view'); view.classList.add('page-fade'); let html = '';
-            if (method === 'VISA') html = `<div class="w-full space-y-6 animate-fade-in"><div class="visa-ui-card p-10 rounded-[2.5rem] text-white relative overflow-hidden shadow-2xl mb-4"><div class="flex justify-between items-start mb-12 italic tracking-widest text-xs opacity-60"><span>Afroverseas Gold Pay</span><span class="font-black text-2xl tracking-tighter">VISA</span></div><div class="text-2xl tracking-[0.4em] font-medium leading-none mb-8">•••• •••• •••• ••••</div><div class="flex justify-between text-[10px] font-black opacity-30 uppercase tracking-[0.4em]"><span>Holder Identity</span><span>MM / YY</span></div></div><input type="text" placeholder="Full Name on Asset Card" class="w-full p-7 bg-white rounded-[2rem] border-none ring-1 ring-gray-100 text-xs font-black outline-none shadow-sm uppercase tracking-widest"></div>`;
-            else if (method === 'MOMO') html = `<div class="space-y-8"><div class="bg-[#0056A4] text-white p-12 rounded-[3.5rem] shadow-2xl text-center leading-none"><p class="text-[11px] font-black uppercase tracking-[0.5em] opacity-40 mb-4 leading-none uppercase">Official Merchant Code</p><p class="text-5xl font-black tracking-tight leading-none">998877</p></div><p class="text-xs font-bold text-gray-400 italic text-center leading-relaxed tracking-tight leading-none">Dial *123# or *150# <br>Reference: AFRO + Registered WhatsApp</p></div>`;
+            if (method === 'VISA') html = `<div class="w-full space-y-6 animate-fade-in"><div class="visa-ui-card p-10 rounded-[2.5rem] text-white relative overflow-hidden shadow-2xl mb-4"><div class="flex justify-between items-start mb-12 italic tracking-widest text-xs opacity-60"><span>Afroverseas Gold Pay</span><span class="font-black text-2xl tracking-tighter">VISA</span></div><div class="text-2xl tracking-[0.4em] font-medium leading-none mb-8">•••• •••• •••• ••••</div><div class="flex justify-between text-[10px] font-black opacity-30 uppercase tracking-[0.4em]"><span>Holder Identity</span><span>MM / YY</span></div></div><input type="text" placeholder="Full Name on Asset Card" class="w-full p-7 bg-white rounded-[2rem] border-none ring-1 ring-gray-100 text-xs font-black outline-none shadow-sm uppercase tracking-widest leading-none"></div>`;
+            else if (method === 'MOMO') html = `<div class="space-y-8"><div class="bg-[#0056A4] text-white p-12 rounded-[3.5rem] shadow-2xl text-center leading-none"><p class="text-[11px] font-black uppercase tracking-[0.5em] opacity-40 mb-4 leading-none uppercase">Official Merchant Code</p><p class="text-5xl font-black tracking-tight leading-none">998877</p></div><p class="text-xs font-bold text-gray-400 italic text-center leading-relaxed tracking-tight leading-none">Reference: AFRO + Registered WhatsApp</p></div>`;
             else if (method === 'CRYPTO') html = `<div class="space-y-6"><div class="bg-orange-50 text-orange-600 p-6 rounded-3xl text-[10px] font-black uppercase tracking-widest leading-none border border-orange-100">USDT TRC20 Stablecoin</div><p class="text-[13px] font-black break-all select-all bg-white p-8 rounded-[2rem] shadow-inner border border-gray-100 leading-relaxed uppercase leading-none">TXaAfroverseasSecureNode123xyz888</p></div>`;
             else if (method === 'BANK') html = `<div class="text-left space-y-4 animate-fade-in leading-none"><div class="bg-white p-10 rounded-[2.5rem] border border-gray-100"><div><p class="text-[9px] font-black uppercase text-gray-300 mb-2 leading-none uppercase">Bank Institution</p><p class="text-sm font-black text-gray-800 leading-none">KCB / BCB Global Group</p></div><div class="mt-8 pt-8 border-t border-gray-50"><div><p class="text-[9px] font-black uppercase text-gray-300 mb-2 leading-none uppercase">Account String</p><p class="text-2xl font-black text-[#0056A4] select-all leading-none">001-22334455-01</p></div></div></div></div>`;
             view.innerHTML = html; setTimeout(() => view.classList.remove('page-fade'), 300); checkPaymentValidation();
         }
 
-        function checkPaymentValidation() { const file = document.getElementById('payment-receipt').files[0]; const btn = document.getElementById('final-pay-submit'); if (file && bookingData.method) { btn.disabled = false; btn.classList.remove('opacity-50'); document.getElementById('upload-placeholder').innerHTML = `<span class="text-[#0056A4] font-black uppercase tracking-[0.4em] text-[11px]">✓ Verification Attached</span>`; } }
+        function checkPaymentValidation() { const file = document.getElementById('payment-receipt').files[0]; const btn = document.getElementById('final-pay-submit'); if (file && bookingData.method) { btn.disabled = false; btn.classList.remove('opacity-50'); document.getElementById('upload-placeholder').innerHTML = `<span class="text-[#0056A4] font-black uppercase tracking-[0.4em] text-[11px] leading-none">✓ Proof Attached Successfully</span>`; } }
 
         async function submitLeadWithFile() {
             const formData = new FormData(); formData.append("type", selectedCandidates.length > 0 ? "RECRUITMENT" : "PAID_APPOINTMENT"); formData.append("service", bookingData.service); formData.append("country", document.getElementById('lead-country').value); formData.append("whatsapp", document.getElementById('lead-whatsapp').value); formData.append("email", document.getElementById('lead-email').value); formData.append("date", bookingData.date); formData.append("payment_method", bookingData.method); formData.append("candidate_ids", JSON.stringify(selectedCandidates)); formData.append("receipt", document.getElementById('payment-receipt').files[0]);
-            const btn = document.getElementById('final-pay-submit'); btn.innerHTML = `<span class="animate-pulse tracking-[0.5em] uppercase text-[10px] font-black">Encrypting Session...</span>`;
-            try { const res = await fetch(`${API_URL}/submit-lead`, { method: 'POST', body: formData }); if (res.ok) { closeDrawer(); showSuccess(); selectedCandidates = []; updateCartUI(); } } catch (e) { alert("Secure Node Down."); }
+            const btn = document.getElementById('final-pay-submit'); btn.innerHTML = `<span class="animate-pulse tracking-[0.5em] uppercase text-[10px] font-black">Encrypting Secure Trans...</span>`;
+            try { const res = await fetch(`${API_URL}/submit-lead`, { method: 'POST', body: formData }); if (res.ok) { closeDrawer(); showSuccess(); selectedCandidates = []; updateCartUI(); } else { alert("Sync Error."); btn.innerHTML = "Finalize & Book"; } } catch (e) { alert("Secure Node Down."); }
         }
 
         function showSuccess() {
             const content = document.getElementById('app-content'); const myNumber = "25771856123";
-            content.innerHTML = `<div class="flex flex-col items-center justify-center min-h-[75vh] text-center px-14 animate-fade-in"><div class="w-40 h-40 bg-green-50 rounded-[5rem] flex items-center justify-center mb-16 shadow-2xl animate-bounce border-[4px] border-green-100 shadow-green-100"><svg class="w-24 h-24 text-[#2D9C3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="4" d="M5 13l4 4L19 7"></path></svg></div><h1 class="text-4xl font-black mb-6 text-[#0056A4] tracking-tighter leading-tight uppercase leading-none">Application Under <br>Manual Review</h1><p class="text-gray-400 mb-16 text-base leading-relaxed font-semibold italic">Your entry for <b>${bookingData.date}</b> is being securely verified. A case agent will reach you on WhatsApp within minutes.</p><a href="https://wa.me/${myNumber}" target="_blank" class="w-full bg-[#2D9C3C] text-white py-8 rounded-[2.5rem] font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl flex items-center justify-center gap-5 transition-transform active:scale-95 border-2 border-white/20">Official Support Line</a><button onclick="loadPage('home')" class="mt-20 text-[11px] font-black uppercase tracking-[0.6em] text-gray-300 active:scale-90 transition-transform">Terminate Active Session</button></div>`;
+            content.innerHTML = `<div class="flex flex-col items-center justify-center min-h-[75vh] text-center px-14 animate-fade-in"><div class="w-40 h-40 bg-green-50 rounded-[5rem] flex items-center justify-center mb-16 shadow-2xl animate-bounce border-[4px] border-green-100 shadow-green-100"><svg class="w-24 h-24 text-[#2D9C3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="4" d="M5 13l4 4L19 7"></path></svg></div><h1 class="text-4xl font-black mb-6 text-[#0056A4] tracking-tighter leading-none leading-tight uppercase leading-none">Manual Review <br>Triggered</h1><p class="text-gray-400 mb-16 text-base leading-relaxed font-semibold italic">Your entry for <b>${bookingData.date}</b> is being securely verified. An agent will message you on WhatsApp shortly.</p><a href="https://wa.me/${myNumber}" target="_blank" class="w-full bg-[#2D9C3C] text-white py-8 rounded-[2.5rem] font-black text-[11px] uppercase tracking-[0.5em] shadow-2xl flex items-center justify-center gap-5 transition-transform active:scale-95 shadow-green-200 border-2 border-white/20">Chat Support Line</a><button onclick="loadPage('home')" class="mt-20 text-[11px] font-black uppercase tracking-[0.6em] text-gray-300">Exit Active Session</button></div>`;
         }
 
         function renderSkeleton() { document.getElementById('app-content').innerHTML = `<div class="space-y-10 animate-fade-in">${Array(3).fill(`<div class="bg-white rounded-[4rem] p-16 space-y-10"><div class="h-12 skeleton rounded-3xl w-4/5"></div><div class="h-6 skeleton rounded-2xl w-3/5 opacity-40"></div><div class="h-32 skeleton rounded-[3rem] w-full shadow-inner"></div></div>`).join('')}</div>`; }
