@@ -1,8 +1,6 @@
 from sqlalchemy import Column, Integer, String, Text, DateTime, Boolean
 from .database import Base
-import datetime, uuid
-
-
+import datetime
 
 class Job(Base):
     __tablename__ = "jobs"
@@ -28,29 +26,31 @@ class Candidate(Base):
     whatsapp = Column(String)
     is_featured = Column(Boolean, default=False)
 
-
-
 class Lead(Base):
     __tablename__ = "leads"
     id = Column(Integer, primary_key=True, index=True)
-    ref_number = Column(String, unique=True) # e.g. AFRO-2024-X123
-    type = Column(String)           
+    ref_number = Column(String, unique=True)
+    type = Column(String)           # 'PAID_APPOINTMENT' or 'RECRUITMENT'
     email = Column(String, nullable=True)
     whatsapp = Column(String)
     
-    # Details from Wizard
+    # Wizard Data
     service_type = Column(String, nullable=True)     
     country = Column(String, nullable=True)
     sub_type = Column(String, nullable=True)         
     
-    # Appointment Details
+    # Appointment Info
     appointment_date = Column(String, nullable=True) 
     arrival_time = Column(String, default="09:00 AM")
-    address = Column(String, default="Afroverseas HQ, City Center Tower, Floor 4")
+    address = Column(String, default="Afroverseas HQ, City Center, Bujumbura")
     
-    # Payment & Verification
+    # Payment & Manual Verification
     payment_method = Column(String, nullable=True)   
     receipt_url = Column(String, nullable=True)      
     status = Column(String, default="Pending Verification") 
+
+    # Recruitment Cart Data
+    candidate_ids = Column(String, nullable=True) # JSON list of IDs
     
+    message = Column(Text, nullable=True)
     created_at = Column(DateTime, default=datetime.datetime.utcnow)

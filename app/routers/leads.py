@@ -29,6 +29,11 @@ async def handle_lead_submission(
     receipt: Optional[UploadFile] = File(None), 
     db: Session = Depends(get_db)
 ):
+    """
+    Handles the 5-step wizard and Recruitment Cart.
+    Saves data and payment receipt proof asynchronously.
+    """
+    
     # 1. Generate Unique Reference Number
     ref = f"AFRO-{uuid.uuid4().hex[:6].upper()}"
     
@@ -40,9 +45,9 @@ async def handle_lead_submission(
         filename = f"receipt_{ref}{ext}"
         save_path = os.path.join(UPLOAD_DIR, filename)
         
-        # We use aiofiles to write the file without blocking the server
+        # We use aiofiles to write the file without blocking the server thread
         async with aiofiles.open(save_path, "wb") as out_file:
-            content = await receipt.read() # Read the file into memory asynchronously
+            content = await receipt.read() # Read the file asynchronously
             await out_file.write(content)  # Write the file asynchronously
         
         receipt_url = f"/static/uploads/{filename}"
@@ -85,7 +90,7 @@ async def handle_lead_submission(
                     </div>
                     
                     <p style="font-weight: bold;">What happens next?</p>
-                    <p>Our finance team is manually verifying your transaction. If valid, you will receive your <b>Entrance QR Code</b> via email and WhatsApp.</p>
+                    <p>Our finance team is manually verifying your transaction. If valid, you will receive your <b>Entrance QR Code</b> and official Appointment Ticket via email and WhatsApp.</p>
                     
                     <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
                     <p style="font-size: 11px; color: #999; text-align: center;">
@@ -98,7 +103,7 @@ async def handle_lead_submission(
         background_tasks.add_task(
             notify.send_noreply_email, 
             email, 
-            f"Afroverseas: Receipt Received [{ref}]", 
+            f"Afroverseas: Request Received [{ref}]", 
             email_body
         )
 
