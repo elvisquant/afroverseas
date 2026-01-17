@@ -8,9 +8,9 @@ from fastapi.staticfiles import StaticFiles
 from sqlalchemy.orm import Session
 
 # Import your local files
-import models
-import schemas
-from database import engine, SessionLocal
+from . import models
+from . import schemas
+from .database import engine, SessionLocal
 
 # --- DATABASE INITIALIZATION ---
 # This creates your tables in Postgres automatically
