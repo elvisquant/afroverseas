@@ -6,9 +6,9 @@ from typing import Optional
 from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 
-# Import local modules
-from . import models, schemas, notify
-from database import get_db
+
+from .. import models, notify
+from ..database import get_db
 
 router = APIRouter(prefix="/api/admin", tags=["Admin Actions"])
 

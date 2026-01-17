@@ -5,7 +5,6 @@ from typing import Optional
 from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, BackgroundTasks
 from sqlalchemy.orm import Session
 
-# Local imports
 from .. import models, notify
 from ..database import get_db
 
