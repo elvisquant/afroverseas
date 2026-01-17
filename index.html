@@ -3,201 +3,311 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <title>Global Recruit - High-End Overseas Jobs</title>
+    <title>Afroverseas - Premium Overseas Recruitment</title>
     
     <!-- Tailwind CSS & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
     <script src="https://accounts.google.com/gsi/client" async defer></script>
 
     <style>
-        body { font-family: 'Inter', sans-serif; -webkit-tap-highlight-color: transparent; }
+        :root {
+            --afro-blue: #0056A4;
+            --afro-green: #2D9C3C;
+            --afro-bg: #F4F7FA;
+        }
+
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            -webkit-tap-highlight-color: transparent; 
+            background-color: var(--afro-bg);
+        }
+
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .safe-area-bottom { padding-bottom: env(safe-area-inset-bottom); }
         
-        /* Smooth Native Animations */
-        .page-fade { animation: fadeIn 0.35s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        /* Animations */
+        .page-fade { animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        .drawer-transition { transition: transform 0.4s cubic-bezier(0.32, 0.72, 0, 1); }
+        .drawer-transition { transition: transform 0.5s cubic-bezier(0.32, 0.72, 0, 1); }
+
+        /* Splash Loader */
+        #splash-screen {
+            position: fixed;
+            inset: 0;
+            background: white;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease;
+        }
+
+        .pulse-logo {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            50% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
+        }
+
+        /* Glassmorphism */
+        .glass { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); }
         
-        /* Glassmorphism Effect */
-        .glass { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+        /* Skeleton Animation */
+        .skeleton {
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: loading 1.5s infinite;
+        }
+        @keyframes loading { to { background-position-x: -200%; } }
     </style>
 </head>
-<body class="bg-[#F8F9FB] text-gray-900 overflow-hidden select-none">
+<body class="text-gray-900 overflow-hidden select-none">
+
+    <!-- SPLASH SCREEN LOADER -->
+    <div id="splash-screen">
+        <div class="relative">
+            <!-- Replace with your actual logo path -->
+            <div class="w-32 h-32 rounded-full border-4 border-[#0056A4] flex items-center justify-center bg-white shadow-2xl pulse-logo">
+                <span class="text-2xl font-black text-[#0056A4]">AFRO</span>
+            </div>
+            <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 flex gap-1">
+                <div class="w-2 h-2 rounded-full bg-[#0056A4] animate-bounce"></div>
+                <div class="w-2 h-2 rounded-full bg-[#2D9C3C] animate-bounce [animation-delay:-0.3s]"></div>
+                <div class="w-2 h-2 rounded-full bg-[#0056A4] animate-bounce [animation-delay:-0.5s]"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- 1. TOP HEADER -->
-    <header class="fixed top-0 left-0 right-0 h-16 bg-[#FF5722] text-white flex items-center justify-between px-6 z-50 shadow-lg">
+    <header class="fixed top-0 left-0 right-0 h-20 glass border-b border-gray-100 flex items-center justify-between px-6 z-50">
         <div class="flex items-center gap-3">
-            <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            <div class="w-10 h-10 bg-[#0056A4] rounded-xl flex items-center justify-center shadow-lg shadow-blue-100">
+                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
             </div>
-            <h1 id="header-title" class="text-lg font-extrabold tracking-tight">Jobs Section</h1>
+            <div>
+                <h1 id="header-title" class="text-lg font-extrabold tracking-tight text-[#0056A4]">Afroverseas</h1>
+                <p class="text-[10px] font-bold text-[#2D9C3C] uppercase tracking-widest">Premium Recruitment</p>
+            </div>
         </div>
-        <div class="flex gap-4">
-            <button class="p-2 bg-white/10 rounded-full active:scale-90 transition-transform">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+        <div class="flex gap-2">
+            <button class="w-10 h-10 bg-gray-50 rounded-full flex items-center justify-center active:scale-90 transition-transform">
+                <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
             </button>
         </div>
     </header>
 
     <!-- 2. MAIN CONTENT AREA -->
-    <main id="app-content" class="absolute inset-0 top-16 bottom-20 overflow-y-auto hide-scrollbar px-4 pt-6 pb-24">
+    <main id="app-content" class="absolute inset-0 top-20 bottom-24 overflow-y-auto hide-scrollbar px-5 pt-6 pb-32">
         <!-- Content dynamically injected here -->
     </main>
 
     <!-- 3. RECRUITMENT CART FLOAT -->
-    <div id="cart-float" class="hidden fixed bottom-24 left-1/2 -translate-x-1/2 z-[55]">
-        <button onclick="openLeadDrawer('RECRUITMENT')" class="bg-black text-white px-8 py-4 rounded-full shadow-2xl flex items-center gap-3 active:scale-95 transition-transform animate-bounce">
-            <span id="cart-count" class="bg-[#FF5722] text-white text-[10px] font-black w-6 h-6 flex items-center justify-center rounded-full">0</span>
+    <div id="cart-float" class="hidden fixed bottom-28 left-1/2 -translate-x-1/2 z-[55]">
+        <button onclick="openLeadDrawer('RECRUITMENT')" class="bg-[#0056A4] text-white px-8 py-4 rounded-3xl shadow-2xl flex items-center gap-3 active:scale-95 transition-transform animate-bounce">
+            <span id="cart-count" class="bg-[#2D9C3C] text-white text-[10px] font-black w-6 h-6 flex items-center justify-center rounded-full border-2 border-white">0</span>
             <span class="font-bold text-sm uppercase tracking-widest">Recruit Selection</span>
         </button>
     </div>
 
     <!-- 4. BOTTOM NAVIGATION -->
-    <nav class="fixed bottom-0 left-0 right-0 h-20 bg-white border-t border-gray-100 flex items-center justify-around px-2 z-50 safe-area-bottom shadow-[0_-8px_30px_rgba(0,0,0,0.04)]">
+    <nav class="fixed bottom-0 left-0 right-0 h-24 bg-white border-t border-gray-100 flex items-center justify-around px-4 z-50 safe-area-bottom shadow-[0_-10px_40px_rgba(0,0,0,0.06)]">
         <a href="javascript:void(0)" onclick="loadPage('home')" class="nav-item flex flex-col items-center justify-center w-full gap-1 group active" data-page="home">
-            <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#FF5722]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#FF5722] uppercase tracking-tighter">Home</span>
+            <div class="p-2 rounded-2xl group-[.active]:bg-blue-50 transition-colors">
+                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+            </div>
+            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Explore</span>
         </a>
         <a href="javascript:void(0)" onclick="loadPage('jobs')" class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="jobs">
-            <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#FF5722]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#FF5722] uppercase tracking-tighter">Jobs</span>
+            <div class="p-2 rounded-2xl group-[.active]:bg-blue-50 transition-colors">
+                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+            </div>
+            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Jobs</span>
         </a>
         <a href="javascript:void(0)" onclick="loadPage('employees')" class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="employees">
-            <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#FF5722]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#FF5722] uppercase tracking-tighter">Employees</span>
+            <div class="p-2 rounded-2xl group-[.active]:bg-blue-50 transition-colors">
+                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M15 7a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+            </div>
+            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Team</span>
         </a>
         <a href="javascript:void(0)" onclick="loadPage('appointment')" class="nav-item flex flex-col items-center justify-center w-full gap-1 group" data-page="appointment">
-            <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#FF5722]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#FF5722] uppercase tracking-tighter">Book</span>
+            <div class="p-2 rounded-2xl group-[.active]:bg-blue-50 transition-colors">
+                <svg class="w-6 h-6 text-gray-400 group-[.active]:text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+            <span class="text-[9px] font-bold text-gray-400 group-[.active]:text-[#0056A4] uppercase tracking-tighter">Consult</span>
         </a>
     </nav>
 
     <!-- 5. LEAD DRAWER -->
-    <div id="drawer-overlay" class="fixed inset-0 bg-black/60 z-[60] hidden backdrop-blur-sm transition-opacity" onclick="closeDrawer()"></div>
-    <div id="lead-drawer" class="fixed bottom-0 left-0 right-0 bg-white z-[70] rounded-t-[2.5rem] p-8 translate-y-full drawer-transition safe-area-bottom shadow-2xl">
-        <div class="w-12 h-1.5 bg-gray-200 rounded-full mx-auto mb-6"></div>
-        <h2 id="drawer-title" class="text-2xl font-black mb-1 text-gray-900 tracking-tight">Book Appointment</h2>
-        <p class="text-gray-500 mb-8 text-sm">We'll verify your details and contact you via WhatsApp.</p>
+    <div id="drawer-overlay" class="fixed inset-0 bg-black/70 z-[60] hidden backdrop-blur-md transition-opacity" onclick="closeDrawer()"></div>
+    <div id="lead-drawer" class="fixed bottom-0 left-0 right-0 bg-white z-[70] rounded-t-[3rem] p-8 translate-y-full drawer-transition safe-area-bottom shadow-2xl">
+        <div class="w-16 h-1.5 bg-gray-200 rounded-full mx-auto mb-8"></div>
+        <h2 id="drawer-title" class="text-3xl font-black mb-2 text-gray-900 tracking-tight">Consultancy</h2>
+        <p class="text-gray-500 mb-10 text-sm leading-relaxed">Let's discuss your next career move. One of our experts will contact you on WhatsApp.</p>
         
-        <div id="g_id_signin" class="mb-6 flex justify-center"></div>
+        <div id="g_id_signin" class="mb-8 flex justify-center"></div>
 
-        <form id="lead-form" class="space-y-4">
-            <input type="email" id="lead-email" placeholder="Email Address" class="w-full p-4 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#FF5722] outline-none transition-all">
-            <input type="tel" id="lead-whatsapp" placeholder="WhatsApp (e.g. +91...)" class="w-full p-4 bg-gray-50 rounded-2xl border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#FF5722] outline-none transition-all">
-            <button type="button" onclick="submitLead()" class="w-full bg-[#FF5722] text-white py-5 rounded-2xl font-black text-lg shadow-xl shadow-orange-100 active:scale-95 transition-all">
-                Send Request
+        <form id="lead-form" class="space-y-5">
+            <div class="relative">
+                <input type="email" id="lead-email" placeholder="Professional Email" class="w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#0056A4] outline-none transition-all">
+            </div>
+            <div class="relative">
+                <input type="tel" id="lead-whatsapp" placeholder="WhatsApp Number" class="w-full p-5 bg-gray-50 rounded-[1.5rem] border-none ring-1 ring-gray-100 focus:ring-2 focus:ring-[#2D9C3C] outline-none transition-all">
+            </div>
+            <button type="button" onclick="submitLead()" class="w-full bg-[#0056A4] text-white py-5 rounded-[1.5rem] font-black text-lg shadow-2xl shadow-blue-200 active:scale-95 transition-all">
+                Send Request Now
             </button>
         </form>
     </div>
 
     <!-- SCRIPTS -->
     <script>
-        const API_URL = "http://localhost:8000/api";
+        const API_URL = "/api"; // Adjusted for production
         let selectedCandidates = [];
         let currentLeadType = 'APPOINTMENT';
+
+        // --- SKELETON UI ---
+        function renderSkeleton() {
+            const container = document.getElementById('app-content');
+            container.innerHTML = `
+                <div class="space-y-6">
+                    ${Array(3).fill(`
+                        <div class="bg-white rounded-[2.5rem] p-6 space-y-4">
+                            <div class="h-6 w-3/4 skeleton rounded-lg"></div>
+                            <div class="h-4 w-1/2 skeleton rounded-lg opacity-50"></div>
+                            <div class="flex gap-2">
+                                <div class="h-8 w-20 skeleton rounded-full"></div>
+                                <div class="h-8 w-20 skeleton rounded-full"></div>
+                            </div>
+                            <div class="h-12 w-full skeleton rounded-2xl"></div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
 
         // --- SPA ROUTER ---
         async function loadPage(page) {
             const content = document.getElementById('app-content');
             const title = document.getElementById('header-title');
             
-            // Visual Update
+            // Visual Navigation State
             document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
             document.querySelector(`[data-page="${page}"]`).classList.add('active');
+            
             content.classList.add('page-fade');
+            renderSkeleton(); // Show loader while fetching
 
             if(page === 'home' || page === 'jobs') {
-                title.innerText = "Active Jobs";
+                title.innerText = "Active Vacancies";
                 await renderJobs();
             } else if(page === 'employees') {
-                title.innerText = "Vetted Candidates";
+                title.innerText = "Verified Experts";
                 await renderCandidates();
             } else if(page === 'appointment') {
                 openLeadDrawer('APPOINTMENT');
             }
 
-            setTimeout(() => content.classList.remove('page-fade'), 350);
+            setTimeout(() => content.classList.remove('page-fade'), 400);
         }
 
         // --- RENDER JOBS ---
         async function renderJobs() {
             const container = document.getElementById('app-content');
-            container.innerHTML = `<div class="animate-pulse space-y-4">` + Array(3).fill(`<div class="h-48 bg-gray-200 rounded-3xl"></div>`).join('') + `</div>`;
-            
             try {
                 const res = await fetch(`${API_URL}/jobs`);
                 const jobs = await res.json();
                 
                 let html = `
-                    <div class="mb-6"><input type="text" placeholder="Search Overseas Jobs..." class="w-full bg-white border-none shadow-sm rounded-2xl py-4 pl-6 outline-none ring-1 ring-gray-100"></div>
-                    <div class="flex gap-2 overflow-x-auto hide-scrollbar mb-8">
-                        <button class="bg-[#FF5722] text-white px-5 py-2 rounded-full text-xs font-bold whitespace-nowrap">Latest</button>
-                        <button class="bg-white px-5 py-2 rounded-full text-xs font-bold border border-gray-100 whitespace-nowrap">Urgent</button>
+                    <div class="mb-8 flex items-center bg-white p-2 rounded-[2rem] shadow-sm border border-gray-100">
+                        <div class="pl-4"><svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg></div>
+                        <input type="text" placeholder="Search Global Vacancies..." class="w-full bg-transparent border-none py-4 px-3 outline-none text-sm font-semibold">
                     </div>
                 `;
 
+                if(jobs.length === 0) {
+                    html += `<div class="text-center py-20 text-gray-400 font-bold">No active jobs found.</div>`;
+                }
+
                 jobs.forEach(job => {
                     html += `
-                        <div class="bg-white rounded-[2rem] shadow-sm p-6 mb-5 border border-gray-50 active:scale-95 transition-transform">
-                            <div class="flex justify-between items-start mb-4">
-                                <div><h3 class="text-lg font-black text-gray-800">${job.title}</h3><p class="text-gray-400 text-xs font-bold uppercase">${job.company}</p></div>
-                                <div class="bg-orange-50 p-2 rounded-xl"><svg class="w-5 h-5 text-[#FF5722]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg></div>
+                        <div class="bg-white rounded-[2.5rem] shadow-sm p-8 mb-6 border border-gray-100 relative overflow-hidden active:scale-[0.98] transition-all">
+                            <div class="flex justify-between items-start mb-6">
+                                <div>
+                                    <h3 class="text-xl font-black text-gray-800 mb-1 leading-tight">${job.title}</h3>
+                                    <p class="text-[#0056A4] text-xs font-black uppercase tracking-widest">${job.company}</p>
+                                </div>
+                                <div class="bg-blue-50 p-3 rounded-2xl">
+                                    <svg class="w-6 h-6 text-[#0056A4]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A10.003 10.003 0 0012 3c1.72 0 3.347.433 4.774 1.2a10 10 0 014.582 9.123c0 .852-.106 1.678-.306 2.47a10.002 10.002 0 01-5.139 7.073l-.052.029a10.218 10.218 0 01-10.647-14.466"/></svg>
+                                </div>
                             </div>
-                            <div class="flex gap-2 mb-6">
-                                <span class="bg-gray-50 text-gray-500 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-gray-100 uppercase">${job.location}</span>
-                                <span class="bg-gray-50 text-gray-500 text-[10px] font-bold px-3 py-1.5 rounded-lg border border-gray-100 uppercase">Exp: ${job.experience}</span>
+                            <div class="flex flex-wrap gap-2 mb-8">
+                                <span class="bg-green-50 text-[#2D9C3C] text-[10px] font-black px-4 py-2 rounded-xl border border-green-100 uppercase tracking-tighter">${job.location}</span>
+                                <span class="bg-blue-50 text-[#0056A4] text-[10px] font-black px-4 py-2 rounded-xl border border-blue-100 uppercase tracking-tighter">Exp: ${job.experience}</span>
                             </div>
-                            <div class="bg-[#FF5722] -mx-6 -mb-6 px-6 py-4 flex justify-between items-center text-white">
-                                <span class="text-[10px] font-bold opacity-70">CODE: ${job.job_code}</span>
-                                <span class="text-sm font-black flex items-center gap-1">Apply Now →</span>
-                            </div>
+                            <button onclick="openLeadDrawer('APPOINTMENT')" class="w-full bg-gray-900 text-white py-5 rounded-[1.5rem] font-black text-sm uppercase tracking-widest flex justify-between items-center px-8 shadow-xl shadow-gray-200">
+                                Apply Now
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M9 5l7 7-7 7"/></svg>
+                            </button>
+                            <p class="mt-4 text-[9px] text-gray-300 font-bold uppercase text-center tracking-[0.2em]">Code: ${job.job_code}</p>
                         </div>
                     `;
                 });
                 container.innerHTML = html;
-            } catch (e) { container.innerHTML = `<p class="text-center text-gray-400 mt-20">Connect to Backend to see jobs.</p>`; }
+            } catch (e) { 
+                container.innerHTML = `<div class="py-20 text-center"><p class="text-gray-400 font-bold">Error connecting to server.</p></div>`;
+            }
         }
 
         // --- RENDER CANDIDATES ---
         async function renderCandidates() {
             const container = document.getElementById('app-content');
-            const res = await fetch(`${API_URL}/candidates`);
-            const candidates = await res.json();
-            
-            let html = `<p class="text-gray-400 text-xs font-bold uppercase mb-6 tracking-widest text-center">Selected for Recruitment</p>`;
-            candidates.forEach(c => {
-                const isSelected = selectedCandidates.includes(c.id);
-                html += `
-                    <div class="bg-white rounded-[2.5rem] overflow-hidden shadow-sm border border-gray-100 mb-6">
-                        <div class="aspect-video bg-gray-900 relative">
-                            <video class="w-full h-full object-cover opacity-60" src="${c.video_url}"></video>
-                            <div class="absolute inset-0 flex items-center justify-center">
-                                <button class="w-14 h-14 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center text-white active:scale-90 transition-transform">
-                                    <svg class="w-6 h-6 fill-current" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
-                                </button>
+            try {
+                const res = await fetch(`${API_URL}/candidates`);
+                const candidates = await res.json();
+                
+                let html = `<div class="grid grid-cols-1 gap-8 pt-4">`;
+                candidates.forEach(c => {
+                    const isSelected = selectedCandidates.includes(c.id);
+                    html += `
+                        <div class="bg-white rounded-[3rem] overflow-hidden shadow-sm border border-gray-100">
+                            <div class="aspect-[4/5] bg-gray-950 relative">
+                                <video class="w-full h-full object-cover opacity-70" src="${c.video_url}" loop muted playsinline></video>
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                                <div class="absolute bottom-8 left-8 right-8 text-white">
+                                    <h3 class="text-2xl font-black mb-1">${c.name}</h3>
+                                    <p class="text-green-400 text-xs font-black uppercase tracking-widest mb-4">${c.skills}</p>
+                                    <div class="flex gap-4">
+                                        <button class="w-12 h-12 bg-white/20 backdrop-blur-xl rounded-2xl flex items-center justify-center active:scale-90 transition-transform">
+                                            <svg class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                                        </button>
+                                        <button onclick="toggleCandidate(${c.id})" class="flex-1 py-4 rounded-2xl font-black text-xs uppercase tracking-widest transition-all ${isSelected ? 'bg-[#2D9C3C] text-white' : 'bg-white text-[#0056A4] shadow-2xl'}">
+                                            ${isSelected ? '✓ In Selection' : '+ Add to Selection'}
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="absolute top-6 right-6">
+                                    <div class="bg-white/10 backdrop-blur-md px-4 py-2 rounded-full border border-white/20 text-white text-[10px] font-black uppercase tracking-widest">Vetted 2024</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="p-6">
-                            <h3 class="text-xl font-black mb-1">${c.name}</h3>
-                            <p class="text-gray-500 text-sm mb-4">${c.skills} • ${c.experience_years} Years</p>
-                            <button onclick="toggleCandidate(${c.id})" class="w-full py-4 rounded-2xl font-bold transition-all ${isSelected ? 'bg-black text-white' : 'bg-gray-100 text-gray-800'}">
-                                ${isSelected ? '✓ Selected' : '+ Recruit Candidate'}
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
+                    `;
+                });
+                html += `</div>`;
+                container.innerHTML = html;
+            } catch (e) { container.innerHTML = `<p class="text-center text-gray-400">Loading Team...</p>`; }
         }
 
         // --- LEAD LOGIC ---
         function toggleCandidate(id) {
             const idx = selectedCandidates.indexOf(id);
             if(idx > -1) selectedCandidates.splice(idx, 1);
-            else { selectedCandidates.push(id); window.navigator.vibrate(15); }
+            else { selectedCandidates.push(id); window.navigator.vibrate(20); }
             updateCartUI();
             renderCandidates();
         }
@@ -210,7 +320,7 @@
 
         function openLeadDrawer(type) {
             currentLeadType = type;
-            document.getElementById('drawer-title').innerText = type === 'RECRUITMENT' ? 'Recruit Selection' : 'Book Appointment';
+            document.getElementById('drawer-title').innerText = type === 'RECRUITMENT' ? 'Bulk Recruitment' : 'Expert Advice';
             document.getElementById('drawer-overlay').classList.remove('hidden');
             document.getElementById('lead-drawer').classList.remove('translate-y-full');
         }
@@ -221,12 +331,21 @@
         }
 
         async function submitLead() {
+            const email = document.getElementById('lead-email').value;
+            const whatsapp = document.getElementById('lead-whatsapp').value;
+            
+            if(!email || !whatsapp) return alert("Please fill details");
+
             const payload = {
                 type: currentLeadType,
-                email: document.getElementById('lead-email').value,
-                whatsapp: document.getElementById('lead-whatsapp').value,
+                email: email,
+                whatsapp: whatsapp,
                 candidate_ids: selectedCandidates
             };
+
+            const btn = event.target;
+            btn.innerHTML = `Processing...`;
+            btn.disabled = true;
 
             const res = await fetch(`${API_URL}/submit-lead`, {
                 method: 'POST',
@@ -239,26 +358,41 @@
                 showSuccess();
                 selectedCandidates = [];
                 updateCartUI();
+            } else {
+                alert("Submission failed. Try again.");
+                btn.innerHTML = `Send Request Now`;
+                btn.disabled = false;
             }
         }
 
         function showSuccess() {
             const content = document.getElementById('app-content');
             content.innerHTML = `
-                <div class="flex flex-col items-center justify-center min-h-[70vh] text-center px-8">
-                    <div class="w-24 h-24 bg-green-50 rounded-full flex items-center justify-center mb-8 animate-bounce">
-                        <svg class="w-12 h-12 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                <div class="flex flex-col items-center justify-center min-h-[75vh] text-center px-10 animate-fade-in">
+                    <div class="w-28 h-28 bg-green-50 rounded-[3rem] flex items-center justify-center mb-10 shadow-2xl shadow-green-100 animate-bounce">
+                        <svg class="w-14 h-14 text-[#2D9C3C]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-width="4" d="M5 13l4 4L19 7"></path></svg>
                     </div>
-                    <h1 class="text-3xl font-black mb-3">Great Choice!</h1>
-                    <p class="text-gray-400 mb-10 text-sm leading-relaxed">Admin is notified. For faster processing, reach out on WhatsApp.</p>
-                    <a href="https://wa.me/YOUR_NUMBER" class="w-full bg-[#25D366] text-white py-5 rounded-3xl font-black text-lg shadow-xl shadow-green-100 flex items-center justify-center gap-3 active:scale-95 transition-transform">
-                        Message Consultant
+                    <h1 class="text-3xl font-black mb-4 tracking-tight text-[#0056A4]">Successfully Logged</h1>
+                    <p class="text-gray-400 mb-12 text-sm leading-relaxed font-semibold">Our consultancy team has been notified. We prioritize your move.</p>
+                    <a href="https://wa.me/YOUR_WHATSAPP_NUMBER" class="w-full bg-[#2D9C3C] text-white py-6 rounded-[2rem] font-black text-lg shadow-2xl shadow-green-200 flex items-center justify-center gap-3 active:scale-95 transition-transform">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                        Instant Consultation
                     </a>
                 </div>
             `;
         }
 
-        window.onload = () => loadPage('home');
+        // --- SPLASH INITIALIZATION ---
+        window.onload = async () => {
+            // Give splash screen a second to look professional
+            setTimeout(async () => {
+                await loadPage('home');
+                document.getElementById('splash-screen').style.opacity = '0';
+                setTimeout(() => {
+                    document.getElementById('splash-screen').style.display = 'none';
+                }, 500);
+            }, 1500);
+        };
     </script>
 </body>
 </html>
