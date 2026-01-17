@@ -7,6 +7,9 @@ import io
 from typing import Optional
 from fastapi import APIRouter, Depends, UploadFile, File, Form, HTTPException, BackgroundTasks, Request
 from sqlalchemy.orm import Session
+import csv
+from fastapi.responses import StreamingResponse
+
 
 # Import local modules using the correct relative path (.. means go up to 'app' folder)
 from .. import models, schemas, notify
@@ -201,3 +204,35 @@ async def verify_lead(
 
     db.commit()
     return {"status": "success", "current_status": lead.status}
+
+
+
+@router.get("/stats")
+def get_dashboard_stats(db: Session = Depends(get_db)):
+    """Returns high-level statistics for the dashboard cards"""
+    return {
+        "total_leads": db.query(models.Lead).count(),
+        "pending_leads": db.query(models.Lead).filter(models.Lead.status == "Pending Verification").count(),
+        "approved_appointments": db.query(models.Lead).filter(models.Lead.status == "Approved").count(),
+        "active_jobs": db.query(models.Job).filter(models.Job.is_active == True).count(),
+        "experts_pool": db.query(models.Candidate).count()
+    }
+
+@router.get("/export-leads")
+def export_leads_report(db: Session = Depends(get_db)):
+    """Generates a CSV report of all leads for Excel/Management"""
+    leads = db.query(models.Lead).all()
+    
+    output = io.StringIO()
+    writer = csv.writer(output)
+    writer.writerow(["Reference", "WhatsApp", "Service", "Country", "Status", "Date"])
+    
+    for l in leads:
+        writer.writerow([l.ref_number, l.whatsapp, l.service_type, l.country, l.status, l.created_at])
+    
+    output.seek(0)
+    return StreamingResponse(
+        iter([output.getvalue()]),
+        media_type="text/csv",
+        headers={"Content-Disposition": "attachment; filename=afroverseas_report.csv"}
+    )

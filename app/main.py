@@ -27,6 +27,13 @@ app.include_router(leads.router)
 
 # Serve the high-end Frontend
 from fastapi.responses import FileResponse
+
+# 1. Access for Main WebApp
 @app.get("/")
 async def read_index():
     return FileResponse('index.html')
+
+# 2. Access for Admin Dashboard
+@app.get("/portal-access-admin")
+async def read_admin():
+    return FileResponse('admin.html')
