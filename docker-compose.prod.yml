@@ -1,18 +1,20 @@
+version: '3.8'
+
 services:
   fastapi-service:
     image: elvispro1993/afroverseas-backend:latest
     container_name: afroverseas_app
     restart: always
-    # Matches your project structure
+    # Ensures the app starts correctly inside the 'app' folder structure
     command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000"
     env_file:
       - .env
     volumes:
+      # PERSISTENT DATA: These folders stay on your GCP server even when you update the code
       - ./static/uploads:/app/static/uploads
-      - ./index.html:/app/index.html
-      - ./admin.html:/app/admin.html  
+      - ./static/qrcodes:/app/static/qrcodes
     depends_on:
       - fastapi-db
     networks:
@@ -27,6 +29,7 @@ services:
       POSTGRES_PASSWORD: ${DB_PASSWORD}
       POSTGRES_DB: ${DB_NAME}
     volumes:
+      # Database persistence
       - postgres_prod_data:/var/lib/postgresql/data
     networks:
       - afroverseas_net

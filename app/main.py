@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.responses import FileResponse
+from fastapi import HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import os
 
@@ -29,16 +30,20 @@ app.include_router(admin.router)
 app.include_router(leads.router)
 
 # --- ROUTING LOGIC ---
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 @app.get("/")
 async def read_index():
-    """Served for afroverseas.com"""
-    return FileResponse('index.html')
+    path = os.path.join(BASE_DIR, "index.html")
+    return FileResponse(path)
 
 @app.get("/portal-access-admin")
 async def read_admin():
-    """Served for admin.afroverseas.com via Nginx Proxy"""
-    return FileResponse('admin.html')
+    path = os.path.join(BASE_DIR, "admin.html")
+    if not os.path.isfile(path):
+        # Professional way to handle missing files
+        raise HTTPException(status_code=404, detail="Admin Dashboard file missing on server")
+    return FileResponse(path)
 
 
 
