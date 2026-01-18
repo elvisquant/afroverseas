@@ -32,7 +32,7 @@ jobs:
           host: ${{ secrets.GCP_IP }}
           username: ${{ secrets.GCP_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          source: "docker-compose.prod.yml,index.html"
+          source: "docker-compose.prod.yml,index.html,admin.html"
           target: "~/afroverseas/"
 
       - name: Deploy on GCP VM
