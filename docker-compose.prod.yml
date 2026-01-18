@@ -10,9 +10,9 @@ services:
     env_file:
       - .env
     volumes:
-      # PERSISTENCE: This ensures videos/CVs survive the GitHub Action update
       - ./static/uploads:/app/static/uploads
       - ./index.html:/app/index.html
+      - ./admin.html:/app/admin.html  
     depends_on:
       - fastapi-db
     networks:
