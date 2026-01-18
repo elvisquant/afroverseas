@@ -3,7 +3,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from .database import engine, Base
 from .routers import public, admin, leads # Refactored imports
-
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 import os
 
@@ -27,12 +27,9 @@ app.include_router(public.router)
 app.include_router(admin.router)
 app.include_router(leads.router)
 
-# Serve the high-end Frontend
-from fastapi.responses import FileResponse
-
 
 # Get the directory where main.py is located
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_PATH = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # 1. Access for Main WebApp
@@ -44,11 +41,11 @@ async def read_index():
 # 2. Access for Admin Dashboard
 @app.get("/portal-access-admin")
 async def read_admin():
-    # Use join to be safe about paths
-    admin_path = os.path.join(BASE_DIR, "admin.html")
-    if not os.path.exists(admin_path):
-        return {"error": "Admin file not found on server"}
-    return FileResponse(admin_path)
+    path = os.path.join(BASE_PATH, "admin.html")
+    if not os.path.isfile(path):
+        # This helps you debug in the browser if it still fails
+        return {"error": f"File not found at {path}"}
+    return FileResponse(path)
 
 
 
